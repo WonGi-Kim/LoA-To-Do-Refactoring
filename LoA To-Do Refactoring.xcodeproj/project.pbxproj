@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */; };
+		B26545912AB57A59009D69F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545902AB57A59009D69F0 /* ContentView.swift */; };
+		B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545922AB57A5B009D69F0 /* Assets.xcassets */; };
+		B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */; };
+		B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545972AB57A5B009D69F0 /* Persistence.swift */; };
+		B265459B2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B26545992AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld */; };
+		B26545A52AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545A42AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift */; };
+		B26545AF2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545AE2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift */; };
+		B26545B12AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545B02AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B26545A12AB57A5B009D69F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B26545832AB57A59009D69F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B265458A2AB57A59009D69F0;
+			remoteInfo = "LoA To-Do Refactoring";
+		};
+		B26545AB2AB57A5B009D69F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B26545832AB57A59009D69F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B265458A2AB57A59009D69F0;
+			remoteInfo = "LoA To-Do Refactoring";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoA To-Do Refactoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringApp.swift; sourceTree = "<group>"; };
+		B26545902AB57A59009D69F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B26545922AB57A5B009D69F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B26545972AB57A5B009D69F0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		B265459A2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LoA_To_Do_Refactoring.xcdatamodel; sourceTree = "<group>"; };
+		B26545A02AB57A5B009D69F0 /* LoA To-Do RefactoringTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LoA To-Do RefactoringTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B26545A42AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringTests.swift; sourceTree = "<group>"; };
+		B26545AA2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LoA To-Do RefactoringUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B26545AE2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringUITests.swift; sourceTree = "<group>"; };
+		B26545B02AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B26545882AB57A59009D69F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B265459D2AB57A5B009D69F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B26545A72AB57A5B009D69F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B26545822AB57A59009D69F0 = {
+			isa = PBXGroup;
+			children = (
+				B265458D2AB57A59009D69F0 /* LoA To-Do Refactoring */,
+				B26545A32AB57A5B009D69F0 /* LoA To-Do RefactoringTests */,
+				B26545AD2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests */,
+				B265458C2AB57A59009D69F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B265458C2AB57A59009D69F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */,
+				B26545A02AB57A5B009D69F0 /* LoA To-Do RefactoringTests.xctest */,
+				B26545AA2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B265458D2AB57A59009D69F0 /* LoA To-Do Refactoring */ = {
+			isa = PBXGroup;
+			children = (
+				B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */,
+				B26545902AB57A59009D69F0 /* ContentView.swift */,
+				B26545922AB57A5B009D69F0 /* Assets.xcassets */,
+				B26545972AB57A5B009D69F0 /* Persistence.swift */,
+				B26545992AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld */,
+				B26545942AB57A5B009D69F0 /* Preview Content */,
+			);
+			path = "LoA To-Do Refactoring";
+			sourceTree = "<group>";
+		};
+		B26545942AB57A5B009D69F0 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B26545A32AB57A5B009D69F0 /* LoA To-Do RefactoringTests */ = {
+			isa = PBXGroup;
+			children = (
+				B26545A42AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift */,
+			);
+			path = "LoA To-Do RefactoringTests";
+			sourceTree = "<group>";
+		};
+		B26545AD2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B26545AE2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift */,
+				B26545B02AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift */,
+			);
+			path = "LoA To-Do RefactoringUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B265458A2AB57A59009D69F0 /* LoA To-Do Refactoring */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B26545B42AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do Refactoring" */;
+			buildPhases = (
+				B26545872AB57A59009D69F0 /* Sources */,
+				B26545882AB57A59009D69F0 /* Frameworks */,
+				B26545892AB57A59009D69F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LoA To-Do Refactoring";
+			productName = "LoA To-Do Refactoring";
+			productReference = B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B265459F2AB57A5B009D69F0 /* LoA To-Do RefactoringTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B26545B72AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do RefactoringTests" */;
+			buildPhases = (
+				B265459C2AB57A5B009D69F0 /* Sources */,
+				B265459D2AB57A5B009D69F0 /* Frameworks */,
+				B265459E2AB57A5B009D69F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B26545A22AB57A5B009D69F0 /* PBXTargetDependency */,
+			);
+			name = "LoA To-Do RefactoringTests";
+			productName = "LoA To-Do RefactoringTests";
+			productReference = B26545A02AB57A5B009D69F0 /* LoA To-Do RefactoringTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B26545A92AB57A5B009D69F0 /* LoA To-Do RefactoringUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B26545BA2AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do RefactoringUITests" */;
+			buildPhases = (
+				B26545A62AB57A5B009D69F0 /* Sources */,
+				B26545A72AB57A5B009D69F0 /* Frameworks */,
+				B26545A82AB57A5B009D69F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B26545AC2AB57A5B009D69F0 /* PBXTargetDependency */,
+			);
+			name = "LoA To-Do RefactoringUITests";
+			productName = "LoA To-Do RefactoringUITests";
+			productReference = B26545AA2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B26545832AB57A59009D69F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					B265458A2AB57A59009D69F0 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					B265459F2AB57A5B009D69F0 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = B265458A2AB57A59009D69F0;
+					};
+					B26545A92AB57A5B009D69F0 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = B265458A2AB57A59009D69F0;
+					};
+				};
+			};
+			buildConfigurationList = B26545862AB57A59009D69F0 /* Build configuration list for PBXProject "LoA To-Do Refactoring" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B26545822AB57A59009D69F0;
+			productRefGroup = B265458C2AB57A59009D69F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B265458A2AB57A59009D69F0 /* LoA To-Do Refactoring */,
+				B265459F2AB57A5B009D69F0 /* LoA To-Do RefactoringTests */,
+				B26545A92AB57A5B009D69F0 /* LoA To-Do RefactoringUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B26545892AB57A59009D69F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */,
+				B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B265459E2AB57A5B009D69F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B26545A82AB57A5B009D69F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B26545872AB57A59009D69F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */,
+				B265459B2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld in Sources */,
+				B26545912AB57A59009D69F0 /* ContentView.swift in Sources */,
+				B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B265459C2AB57A5B009D69F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B26545A52AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B26545A62AB57A5B009D69F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B26545B12AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift in Sources */,
+				B26545AF2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B26545A22AB57A5B009D69F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B265458A2AB57A59009D69F0 /* LoA To-Do Refactoring */;
+			targetProxy = B26545A12AB57A5B009D69F0 /* PBXContainerItemProxy */;
+		};
+		B26545AC2AB57A5B009D69F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B265458A2AB57A59009D69F0 /* LoA To-Do Refactoring */;
+			targetProxy = B26545AB2AB57A5B009D69F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B26545B22AB57A5B009D69F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B26545B32AB57A5B009D69F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B26545B52AB57A5B009D69F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LoA To-Do Refactoring/Preview Content\"";
+				DEVELOPMENT_TEAM = FH49FN5F9A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-Refactoring";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B26545B62AB57A5B009D69F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LoA To-Do Refactoring/Preview Content\"";
+				DEVELOPMENT_TEAM = FH49FN5F9A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-Refactoring";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B26545B82AB57A5B009D69F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FH49FN5F9A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-RefactoringTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LoA To-Do Refactoring.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LoA To-Do Refactoring";
+			};
+			name = Debug;
+		};
+		B26545B92AB57A5B009D69F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FH49FN5F9A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-RefactoringTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LoA To-Do Refactoring.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LoA To-Do Refactoring";
+			};
+			name = Release;
+		};
+		B26545BB2AB57A5B009D69F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FH49FN5F9A;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-RefactoringUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "LoA To-Do Refactoring";
+			};
+			name = Debug;
+		};
+		B26545BC2AB57A5B009D69F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FH49FN5F9A;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-RefactoringUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "LoA To-Do Refactoring";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B26545862AB57A59009D69F0 /* Build configuration list for PBXProject "LoA To-Do Refactoring" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B26545B22AB57A5B009D69F0 /* Debug */,
+				B26545B32AB57A5B009D69F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B26545B42AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do Refactoring" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B26545B52AB57A5B009D69F0 /* Debug */,
+				B26545B62AB57A5B009D69F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B26545B72AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do RefactoringTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B26545B82AB57A5B009D69F0 /* Debug */,
+				B26545B92AB57A5B009D69F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B26545BA2AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do RefactoringUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B26545BB2AB57A5B009D69F0 /* Debug */,
+				B26545BC2AB57A5B009D69F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B26545992AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B265459A2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodel */,
+			);
+			currentVersion = B265459A2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodel */;
+			path = LoA_To_Do_Refactoring.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B26545832AB57A59009D69F0 /* Project object */;
+}
