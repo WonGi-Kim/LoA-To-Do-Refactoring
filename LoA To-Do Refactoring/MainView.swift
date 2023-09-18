@@ -14,12 +14,12 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             
-            // 네비게이션 바 설정
-            Text("Main Content Goes Here") // 네비게이션 바 내용
+            List() {
+                Text("1")
+            }
             
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
             .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive))
-            
         }
     }
 }
@@ -43,18 +43,65 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>) -> some View {
 struct SettingView: View {
     @Binding var isMainViewActive: Bool
     
+    @State var charName: String = ""
+    @State var charClass: String = ""
+    @State var charLevel: String = ""
+    
     var body: some View {
         
         @Environment(\.presentationMode) var presentationMode
         
-        Text("settingView")
+        VStack{
+            HStack {
+                Text("캐릭터 명")
+                Spacer()
+            }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+            
+            HStack {
+                TextField("캐릭터 이름을 입력해주세요", text: $charName)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            
+            HStack {
+                Text("아이템 레벨")
+                Spacer()
+            }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
+            
+            HStack {
+                TextField("아이템 레벨을 입력해주세요", text: $charLevel)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            
+            HStack {
+                Text("캐릭터 클래스")
+                Spacer()
+            }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
+            
+            HStack {
+                TextField("캐릭터 클래스를 선택해주세요", text: $charClass)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            Spacer()
+        }
+        
         
             .navigationBarTitle("캐릭터 생성")
             .navigationBarItems(
                 leading: backButton(presentationMode),
                 trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive)
             )
-            
     }
 }
 
