@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */; };
-		B26545912AB57A59009D69F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545902AB57A59009D69F0 /* ContentView.swift */; };
 		B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545922AB57A5B009D69F0 /* Assets.xcassets */; };
 		B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */; };
 		B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545972AB57A5B009D69F0 /* Persistence.swift */; };
@@ -16,6 +15,7 @@
 		B26545A52AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545A42AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift */; };
 		B26545AF2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545AE2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift */; };
 		B26545B12AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545B02AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift */; };
+		B26545BE2AB57A91009D69F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545BD2AB57A91009D69F0 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 /* Begin PBXFileReference section */
 		B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoA To-Do Refactoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringApp.swift; sourceTree = "<group>"; };
-		B26545902AB57A59009D69F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B26545922AB57A5B009D69F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B26545972AB57A5B009D69F0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		B26545AA2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LoA To-Do RefactoringUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B26545AE2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringUITests.swift; sourceTree = "<group>"; };
 		B26545B02AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B26545BD2AB57A91009D69F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +98,8 @@
 		B265458D2AB57A59009D69F0 /* LoA To-Do Refactoring */ = {
 			isa = PBXGroup;
 			children = (
+				B26545BD2AB57A91009D69F0 /* MainView.swift */,
 				B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */,
-				B26545902AB57A59009D69F0 /* ContentView.swift */,
 				B26545922AB57A5B009D69F0 /* Assets.xcassets */,
 				B26545972AB57A5B009D69F0 /* Persistence.swift */,
 				B26545992AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld */,
@@ -264,8 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */,
+				B26545BE2AB57A91009D69F0 /* MainView.swift in Sources */,
 				B265459B2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld in Sources */,
-				B26545912AB57A59009D69F0 /* ContentView.swift in Sources */,
 				B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +433,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,6 +463,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
