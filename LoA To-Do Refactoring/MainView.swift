@@ -10,125 +10,83 @@ import SwiftUI
 //  MARK: - 처음 화면
 struct MainView: View {
     @State var mainViewActive = false
+    @State var isSettingViewActive = false
+    
+    @State var characterList: [CharacterSetting] = []
     
     var body: some View {
         NavigationView {
             
             List() {
                 Text("1")
+                createCharacterCell(characterList: $characterList)
             }
             
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
-            .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive))
+            .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, characterList: $characterList))
+            
+            .sheet(isPresented: $isSettingViewActive) {
+                SettingView(isMainViewActive: $isSettingViewActive, characterList: $characterList)
+            }
         }
     }
 }
 
 //  MARK: - MainView 구성 함수
 //  MARK: 캐릭터 생성 버튼
-func createNewCharacterButton(isMainViewActive: Binding<Bool>) -> some View {
+func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Binding<[CharacterSetting]>) -> some View {
     Button {
         isMainViewActive.wrappedValue.toggle()
+        //print("main에서 characterList",characterList)
     } label: {
         Image.init(systemName: "plus")
             .foregroundColor(.white)
             .font(.title2)
     }.background(
-        NavigationLink("",destination: SettingView(isMainViewActive: isMainViewActive),isActive : isMainViewActive)
+        NavigationLink("",destination: SettingView(isMainViewActive: isMainViewActive, characterList: characterList),isActive : isMainViewActive)
             .opacity(0)
     )
 }
 
-//  MARK: - SettingView
-struct SettingView: View {
-    @Binding var isMainViewActive: Bool
-    
-    @State var charName: String = ""
-    @State var charClass: String = ""
-    @State var charLevel: String = ""
-    
-    var body: some View {
-        
-        @Environment(\.presentationMode) var presentationMode
-        
-        VStack{
-            HStack {
-                Text("캐릭터 명")
-                Spacer()
-            }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+// MARK: 캐릭터 셀 생성
+func createCharacterCell(characterList: Binding<[CharacterSetting]>) -> some View {
+    if let firstCharacter = characterList.wrappedValue.first {
+        return HStack {
+            Image(firstCharacter.charClass)
+                .resizable()
+                .frame(width: 50, height: 50)
             
-            HStack {
-                TextField("캐릭터 이름을 입력해주세요", text: $charName)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            Spacer()
             
-            HStack {
-                Text("아이템 레벨")
-                Spacer()
-            }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
-            
-            HStack {
-                TextField("아이템 레벨을 입력해주세요", text: $charLevel)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-            
-            HStack {
-                Text("캐릭터 클래스")
-                Spacer()
-            }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
-            
-            HStack {
-                TextField("캐릭터 클래스를 선택해주세요", text: $charClass)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-            }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            VStack {
+                Text(firstCharacter.charName)
+                Text(firstCharacter.charLevel)
+            }
             Spacer()
         }
-        
-        
-            .navigationBarTitle("캐릭터 생성")
-            .navigationBarItems(
-                leading: backButton(presentationMode),
-                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive)
-            )
-    }
-}
-
-
-//  MARK: - SettingView 구성 함수
-//  MARK: 이전화면 버튼
-func backButton(_ presentationMode: Binding<PresentationMode>) -> some View {
-    Button {
-        presentationMode.wrappedValue.dismiss()
-    } label: {
-
-    }
-}
-
-//  MARK: 캐릭터 생성 완료 버튼
-func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>) -> some View {
-    return Button {
-        isMainViewActive.wrappedValue = false
-    } label: {
-        Text("캐릭터 생성")
-            .foregroundColor(.blue)
-            .font(.system(size: 17))
+    } else {
+        // characterList가 비어있을 때 기본 이미지 표시
+        return HStack {
+            Image("건슬링어")
+                .resizable()
+                .frame(width: 50, height: 50)
+            
+            Spacer()
+            
+            VStack {
+                Text("기본 캐릭")
+                Text("기본 이름")
+            }
+            Spacer()
+        }
     }
 }
 
 struct MainView_Previews: PreviewProvider {
+    //@State static var characterList: [CharacterSetting] = [] // characterList를 미리 생성
+    
     static var previews: some View {
-        MainView()
+        MainView() // characterList를 MainView에 전달
     }
 }
+
