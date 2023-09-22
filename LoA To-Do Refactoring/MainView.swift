@@ -19,7 +19,9 @@ struct MainView: View {
             
             List() {
                 Text("1")
-                createCharacterCell(characterList: $characterList)
+                ForEach(characterList.indices, id: \.self) { index in
+                    createCharacterCell(characterList: $characterList[index])
+                }
             }
             
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
@@ -49,37 +51,21 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
 }
 
 // MARK: 캐릭터 셀 생성
-func createCharacterCell(characterList: Binding<[CharacterSetting]>) -> some View {
-    if let firstCharacter = characterList.wrappedValue.first {
-        return HStack {
-            Image(firstCharacter.charClass)
-                .resizable()
-                .frame(width: 50, height: 50)
+func createCharacterCell(characterList: Binding<CharacterSetting>) -> some View {
+    HStack {
+        Image(characterList.wrappedValue.charClass)
+            .resizable()
+            .frame(width: 50, height: 50)
             
-            Spacer()
+        Spacer()
             
-            VStack {
-                Text(firstCharacter.charName)
-                Text(firstCharacter.charLevel)
-            }
-            Spacer()
+        VStack {
+            Text(characterList.wrappedValue.charName)
+            Text(characterList.wrappedValue.charLevel)
         }
-    } else {
-        // characterList가 비어있을 때 기본 이미지 표시
-        return HStack {
-            Image("건슬링어")
-                .resizable()
-                .frame(width: 50, height: 50)
-            
-            Spacer()
-            
-            VStack {
-                Text("기본 캐릭")
-                Text("기본 이름")
-            }
-            Spacer()
-        }
+        Spacer()
     }
+    
 }
 
 struct MainView_Previews: PreviewProvider {

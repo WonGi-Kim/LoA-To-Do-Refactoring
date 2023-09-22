@@ -69,6 +69,7 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter:
         characterList.wrappedValue.append(newChar)
         
         print("Setting에서 characterList", characterList.wrappedValue)
+        print("Setting에서 characterList", characterList.wrappedValue.count)
         print("Setting에서 newCharacter.wrappedValue.charName", newCharacter.wrappedValue.charName)
         
         
