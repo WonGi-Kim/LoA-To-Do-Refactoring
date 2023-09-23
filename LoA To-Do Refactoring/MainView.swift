@@ -5,6 +5,13 @@
 //  Created by 김원기 on 2023/09/16.
 //
 
+
+//  MainView에서 firestore에 데이터 적용
+//  Api사용후 데이터 갱신을 사용하기 위해
+//  DetailView에서는 Done값을 새로 작성하여 Bool값을 조정하는 부분 작성
+//  수정화면에서는
+
+
 import SwiftUI
 
 //  MARK: - 처음 화면
@@ -18,7 +25,6 @@ struct MainView: View {
         NavigationView {
             
             List() {
-                Text("1")
                 ForEach(characterList.indices, id: \.self) { index in
                     createCharacterCell(characterList: $characterList[index])
                 }
@@ -52,21 +58,26 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
 
 // MARK: 캐릭터 셀 생성
 func createCharacterCell(characterList: Binding<CharacterSetting>) -> some View {
-    HStack {
-        Image(characterList.wrappedValue.charClass)
-            .resizable()
-            .frame(width: 50, height: 50)
+    Button {
+    } label: {
+        HStack {
+            Image(characterList.wrappedValue.charClass)
+                .resizable()
+                .frame(width: 50, height: 50)
             
-        Spacer()
+            Spacer()
             
-        VStack {
-            Text(characterList.wrappedValue.charName)
-            Text(characterList.wrappedValue.charLevel)
+            VStack {
+                Text(characterList.wrappedValue.charName)
+                Text(characterList.wrappedValue.charLevel)
+            }
+            Spacer()
         }
-        Spacer()
     }
-    
 }
+
+//  MARK: API갱신
+
 
 struct MainView_Previews: PreviewProvider {
     //@State static var characterList: [CharacterSetting] = [] // characterList를 미리 생성
