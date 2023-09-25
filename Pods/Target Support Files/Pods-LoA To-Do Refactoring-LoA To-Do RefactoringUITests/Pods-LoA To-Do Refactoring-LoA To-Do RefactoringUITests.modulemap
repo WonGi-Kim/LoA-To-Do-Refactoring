@@ -1,0 +1,6 @@
+framework module Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests {
+  umbrella header "Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

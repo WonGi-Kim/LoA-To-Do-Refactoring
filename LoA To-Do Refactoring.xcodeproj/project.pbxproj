@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BE76F3934082AE77D5C9131 /* Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7425E8BADE204063F93C6B7 /* Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests.framework */; };
+		28BF6BEA4EAF55239217EDB2 /* Pods_LoA_To_Do_Refactoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 069CB7D16750A30DDCB3244F /* Pods_LoA_To_Do_Refactoring.framework */; };
+		A8388DE4FA11C520C95B87BE /* Pods_LoA_To_Do_RefactoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4715B8D1D6702BF5A70D441 /* Pods_LoA_To_Do_RefactoringTests.framework */; };
 		B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */; };
 		B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545922AB57A5B009D69F0 /* Assets.xcassets */; };
 		B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */; };
@@ -18,6 +21,15 @@
 		B26545BE2AB57A91009D69F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545BD2AB57A91009D69F0 /* MainView.swift */; };
 		B26545C42AB8289E009D69F0 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545C32AB8289E009D69F0 /* SettingView.swift */; };
 		B26545C62AB839E9009D69F0 /* CharacterSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545C52AB839E9009D69F0 /* CharacterSetting.swift */; };
+		B26545CA2ABEB303009D69F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B26545C92ABEB303009D69F0 /* GoogleService-Info.plist */; };
+		B26545CB2ABEB303009D69F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B26545C92ABEB303009D69F0 /* GoogleService-Info.plist */; };
+		B26545CC2ABEB303009D69F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B26545C92ABEB303009D69F0 /* GoogleService-Info.plist */; };
+		B26545CE2ABEBC73009D69F0 /* characterProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */; };
+		B26545CF2ABEBC73009D69F0 /* characterProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */; };
+		B26545D02ABEBC73009D69F0 /* characterProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */; };
+		B26545D22ABEC051009D69F0 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */; };
+		B26545D32ABEC051009D69F0 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */; };
+		B26545D42ABEC051009D69F0 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +50,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		069CB7D16750A30DDCB3244F /* Pods_LoA_To_Do_Refactoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoA_To_Do_Refactoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		655414D3882B3604FFD8AC34 /* Pods-LoA To-Do RefactoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do RefactoringTests.debug.xcconfig"; path = "Target Support Files/Pods-LoA To-Do RefactoringTests/Pods-LoA To-Do RefactoringTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6CB1C2D3FED02294EA0A5FBA /* Pods-LoA To-Do Refactoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do Refactoring.debug.xcconfig"; path = "Target Support Files/Pods-LoA To-Do Refactoring/Pods-LoA To-Do Refactoring.debug.xcconfig"; sourceTree = "<group>"; };
+		8C1AD484397375AF77147A74 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoA To-Do Refactoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringApp.swift; sourceTree = "<group>"; };
 		B26545922AB57A5B009D69F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +68,14 @@
 		B26545BD2AB57A91009D69F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B26545C32AB8289E009D69F0 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		B26545C52AB839E9009D69F0 /* CharacterSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetting.swift; sourceTree = "<group>"; };
+		B26545C92ABEB303009D69F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = characterProfiles.swift; sourceTree = "<group>"; };
+		B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
+		D1CD45F8B10E14F7664F29E0 /* Pods-LoA To-Do Refactoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do Refactoring.release.xcconfig"; path = "Target Support Files/Pods-LoA To-Do Refactoring/Pods-LoA To-Do Refactoring.release.xcconfig"; sourceTree = "<group>"; };
+		D7425E8BADE204063F93C6B7 /* Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4715B8D1D6702BF5A70D441 /* Pods_LoA_To_Do_RefactoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoA_To_Do_RefactoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA90D89C80D36D49EADFBDE5 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.release.xcconfig"; path = "Target Support Files/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EAABD20993A94E1277B66D8A /* Pods-LoA To-Do RefactoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do RefactoringTests.release.xcconfig"; path = "Target Support Files/Pods-LoA To-Do RefactoringTests/Pods-LoA To-Do RefactoringTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28BF6BEA4EAF55239217EDB2 /* Pods_LoA_To_Do_Refactoring.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8388DE4FA11C520C95B87BE /* Pods_LoA_To_Do_RefactoringTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,12 +99,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE76F3934082AE77D5C9131 /* Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		184824823EAA4261219F65A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				069CB7D16750A30DDCB3244F /* Pods_LoA_To_Do_Refactoring.framework */,
+				D7425E8BADE204063F93C6B7 /* Pods_LoA_To_Do_Refactoring_LoA_To_Do_RefactoringUITests.framework */,
+				E4715B8D1D6702BF5A70D441 /* Pods_LoA_To_Do_RefactoringTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B26545822AB57A59009D69F0 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +123,8 @@
 				B26545A32AB57A5B009D69F0 /* LoA To-Do RefactoringTests */,
 				B26545AD2AB57A5B009D69F0 /* LoA To-Do RefactoringUITests */,
 				B265458C2AB57A59009D69F0 /* Products */,
+				D8009BB0A1E56E4BA6EAF7C9 /* Pods */,
+				184824823EAA4261219F65A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,12 +141,15 @@
 		B265458D2AB57A59009D69F0 /* LoA To-Do Refactoring */ = {
 			isa = PBXGroup;
 			children = (
+				B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */,
 				B26545BD2AB57A91009D69F0 /* MainView.swift */,
 				B26545C32AB8289E009D69F0 /* SettingView.swift */,
 				B26545C52AB839E9009D69F0 /* CharacterSetting.swift */,
+				B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */,
 				B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */,
 				B26545922AB57A5B009D69F0 /* Assets.xcassets */,
 				B26545972AB57A5B009D69F0 /* Persistence.swift */,
+				B26545C92ABEB303009D69F0 /* GoogleService-Info.plist */,
 				B26545992AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld */,
 				B26545942AB57A5B009D69F0 /* Preview Content */,
 			);
@@ -139,6 +181,19 @@
 			path = "LoA To-Do RefactoringUITests";
 			sourceTree = "<group>";
 		};
+		D8009BB0A1E56E4BA6EAF7C9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6CB1C2D3FED02294EA0A5FBA /* Pods-LoA To-Do Refactoring.debug.xcconfig */,
+				D1CD45F8B10E14F7664F29E0 /* Pods-LoA To-Do Refactoring.release.xcconfig */,
+				8C1AD484397375AF77147A74 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig */,
+				EA90D89C80D36D49EADFBDE5 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.release.xcconfig */,
+				655414D3882B3604FFD8AC34 /* Pods-LoA To-Do RefactoringTests.debug.xcconfig */,
+				EAABD20993A94E1277B66D8A /* Pods-LoA To-Do RefactoringTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,9 +201,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B26545B42AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do Refactoring" */;
 			buildPhases = (
+				3916C53C5AC0B052E57E9BD8 /* [CP] Check Pods Manifest.lock */,
 				B26545872AB57A59009D69F0 /* Sources */,
 				B26545882AB57A59009D69F0 /* Frameworks */,
 				B26545892AB57A59009D69F0 /* Resources */,
+				C9EB70CB7CEC6033007AD223 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,6 +220,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B26545B72AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do RefactoringTests" */;
 			buildPhases = (
+				B30C1C02CE83D3B9145BCC56 /* [CP] Check Pods Manifest.lock */,
 				B265459C2AB57A5B009D69F0 /* Sources */,
 				B265459D2AB57A5B009D69F0 /* Frameworks */,
 				B265459E2AB57A5B009D69F0 /* Resources */,
@@ -181,9 +239,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B26545BA2AB57A5B009D69F0 /* Build configuration list for PBXNativeTarget "LoA To-Do RefactoringUITests" */;
 			buildPhases = (
+				4AC9DB51527A9151BA9016E1 /* [CP] Check Pods Manifest.lock */,
 				B26545A62AB57A5B009D69F0 /* Sources */,
 				B26545A72AB57A5B009D69F0 /* Frameworks */,
 				B26545A82AB57A5B009D69F0 /* Resources */,
+				FD0F65565E5524CCF965687C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,6 +305,7 @@
 			files = (
 				B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */,
 				B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */,
+				B26545CA2ABEB303009D69F0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B26545CB2ABEB303009D69F0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,10 +321,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B26545CC2ABEB303009D69F0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3916C53C5AC0B052E57E9BD8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LoA To-Do Refactoring-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4AC9DB51527A9151BA9016E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B30C1C02CE83D3B9145BCC56 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LoA To-Do RefactoringTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9EB70CB7CEC6033007AD223 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LoA To-Do Refactoring/Pods-LoA To-Do Refactoring-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LoA To-Do Refactoring/Pods-LoA To-Do Refactoring-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LoA To-Do Refactoring/Pods-LoA To-Do Refactoring-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD0F65565E5524CCF965687C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B26545872AB57A59009D69F0 /* Sources */ = {
@@ -272,6 +438,8 @@
 				B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */,
 				B26545C42AB8289E009D69F0 /* SettingView.swift in Sources */,
 				B26545BE2AB57A91009D69F0 /* MainView.swift in Sources */,
+				B26545CE2ABEBC73009D69F0 /* characterProfiles.swift in Sources */,
+				B26545D22ABEC051009D69F0 /* CharacterViewModel.swift in Sources */,
 				B265459B2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld in Sources */,
 				B26545C62AB839E9009D69F0 /* CharacterSetting.swift in Sources */,
 				B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */,
@@ -283,6 +451,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B26545A52AB57A5B009D69F0 /* LoA_To_Do_RefactoringTests.swift in Sources */,
+				B26545D32ABEC051009D69F0 /* CharacterViewModel.swift in Sources */,
+				B26545CF2ABEBC73009D69F0 /* characterProfiles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,8 +460,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B26545D42ABEC051009D69F0 /* CharacterViewModel.swift in Sources */,
 				B26545B12AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITestsLaunchTests.swift in Sources */,
 				B26545AF2AB57A5B009D69F0 /* LoA_To_Do_RefactoringUITests.swift in Sources */,
+				B26545D02ABEBC73009D69F0 /* characterProfiles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +599,7 @@
 		};
 		B26545B52AB57A5B009D69F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CB1C2D3FED02294EA0A5FBA /* Pods-LoA To-Do Refactoring.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -457,6 +630,7 @@
 		};
 		B26545B62AB57A5B009D69F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CD45F8B10E14F7664F29E0 /* Pods-LoA To-Do Refactoring.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -487,6 +661,7 @@
 		};
 		B26545B82AB57A5B009D69F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 655414D3882B3604FFD8AC34 /* Pods-LoA To-Do RefactoringTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -507,6 +682,7 @@
 		};
 		B26545B92AB57A5B009D69F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAABD20993A94E1277B66D8A /* Pods-LoA To-Do RefactoringTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -527,6 +703,7 @@
 		};
 		B26545BB2AB57A5B009D69F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C1AD484397375AF77147A74 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +722,7 @@
 		};
 		B26545BC2AB57A5B009D69F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA90D89C80D36D49EADFBDE5 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

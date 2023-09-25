@@ -13,6 +13,16 @@
 
 
 import SwiftUI
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure() // Firebase 초기화 코드
+        return true
+    }
+}
 
 //  MARK: - 처음 화면
 struct MainView: View {
@@ -21,12 +31,15 @@ struct MainView: View {
     
     @State var characterList: [CharacterSetting] = []
     
+    @ObservedObject private var characterViewModel = CharacterViewModel()
+    @State var encodeName: String = ""
+    
     var body: some View {
         NavigationView {
             
             List() {
                 ForEach(characterList.indices, id: \.self) { index in
-                    createCharacterCell(characterList: $characterList[index])
+                    createCharacterCell(character: $characterList[index])
                 }
             }
             
@@ -57,26 +70,70 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
 }
 
 // MARK: 캐릭터 셀 생성
-func createCharacterCell(characterList: Binding<CharacterSetting>) -> some View {
-    Button {
-    } label: {
-        HStack {
-            Image(characterList.wrappedValue.charClass)
-                .resizable()
-                .frame(width: 50, height: 50)
-            
-            Spacer()
-            
-            VStack {
-                Text(characterList.wrappedValue.charName)
-                Text(characterList.wrappedValue.charLevel)
+func createCharacterCell(character: Binding<CharacterSetting>) -> some View {
+    HStack {
+        Button {
+            print("CharacterCell Tapped")
+            print("character:", character)
+        } label: {
+            HStack {
+                Image(character.wrappedValue.charClass)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                
+                Spacer()
+                
+                VStack {
+                    Text(character.wrappedValue.charName)
+                    Text(character.wrappedValue.charLevel)
+                }
+                Spacer()
+                
             }
-            Spacer()
+        }.buttonStyle(PlainButtonStyle())
+        
+        Spacer()
+        
+        Button {
+            callLostarkApi(characterViewModel: CharacterViewModel(), character: character) {
+                // API 호출이 완료된 후에 UI 업데이트 코드를 작성
+                print("API complete")
+            }
+            print("callLostarkApi Tapped")
+        } label: {
+            Image.init(systemName: "arrow.clockwise")
+                .resizable()
+                .frame(width: 30, height: 30)
         }
     }
 }
 
-//  MARK: API갱신
+// MARK: API 갱신
+func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<CharacterSetting>, completion: @escaping () -> Void) {
+    guard let encodeName = character.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+        return
+    }
+
+    characterViewModel.getCharacterProfiles(characterName: encodeName) { result in
+        switch result {
+        case .success(let data):
+            // API 호출 성공 시 데이터 업데이트
+            DispatchQueue.main.async {
+                character.wrappedValue.charName = data.CharacterName ?? ""
+                character.wrappedValue.charClass = data.CharacterClassName ?? ""
+                character.wrappedValue.charLevel = data.ItemAvgLevel ?? ""
+                // 데이터가 업데이트되었음을 완료 클로저를 통해 알립니다.
+                completion()
+            }
+        case .failure(let error):
+            // 에러 처리
+            print("API Error: \(error)")
+            // 에러가 발생한 경우도 완료 클로저를 호출하여 알릴 수 있습니다.
+            completion()
+        }
+    }
+}
+
 
 
 struct MainView_Previews: PreviewProvider {
