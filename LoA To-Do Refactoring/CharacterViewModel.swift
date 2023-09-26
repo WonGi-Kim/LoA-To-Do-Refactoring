@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseFirestore
+import FirebaseCore
+import FirebaseAuth
 
 enum CustomError: Error {
     case noDataOrResponse
@@ -18,6 +21,7 @@ enum CustomError: Error {
 class CharacterViewModel: ObservableObject {
     @Published var characterProfiles: CharacterProfiles?
     @Published var characterImage: UIImage?
+    @Published var characterList: [CharacterSetting] = []
     
     struct ErrorResponse: Codable {
         let Code: Int
@@ -111,4 +115,83 @@ class CharacterViewModel: ObservableObject {
             return jsonObject
         }
     }
+    
+    //  MARK: - FireStore연동
+    //  MARK: Cell 생성을 위한 저장
+    let db = Firestore.firestore()
+    
+    
+    func saveDateForCreateCell(_ characterList: CharacterSetting) {
+        let charName = characterList.charName
+        
+        let dataToUpdateAndSave: [String: Any] = [
+            "charName": characterList.charName ?? "",
+            "charClass": characterList.charClass ?? "",
+            "charLevel": characterList.charLevel ?? "",
+            "isGuardianRaid": characterList.isGuardianRaid,
+            "isChaosDungeon": characterList.isChaosDungeon,
+            "isValtanRaid": characterList.isValtanRaid,
+            "isViakissRaid": characterList.isViakissRaid,
+            "isKoukuRaid": characterList.isKoukuRaid,
+            "isAbrelRaid": characterList.isAbrelRaid,
+            "isIliakanRaid": characterList.isIliakanRaid,
+            "isKamenRaid": characterList.isKamenRaid,
+            "isAbyssRaid": characterList.isAbyssRaid,
+            "isAbyssDungeon": characterList.isAbyssDungeon,
+            
+        ]
+        
+        let cellCollection = db.collection("Cells")
+        let documentRef = cellCollection.document(charName)
+        
+        documentRef.getDocument{ (document, error) in
+            if let document = document, document.exists {
+                documentRef.setData(dataToUpdateAndSave) { error in
+                    if let error {
+                        print("Error updating document: \(error)")
+                    } else {
+                        print("Document updated successfully!")
+                    }
+                }
+            } else {
+                // 해당 캐릭터 이름을 가진 문서가 존재하지 않는 경우 생성
+                documentRef.setData(dataToUpdateAndSave) { error in
+                    if let error = error {
+                        print("Error adding document: \(error)")
+                    } else {
+                        print("Document added successfully!")
+                    }
+                }
+            }
+        }
+    }
+    
+   
+    
+    
+    
+    /**
+    //MARK: 캐릭터 셀 저장
+    func saveCharacterList(_ characterList: [CharacterSetting]) {
+        let jsonEncoder = JSONEncoder()
+        if let jsonData = try? jsonEncoder.encode(characterList) {
+            UserDefaults.standard.set(jsonData, forKey: "CharacterList")
+        }
+        
+        print("Success Save CharacterList!!")
+    }
+
+    // UserDefaults에서 데이터를 불러오는 메서드
+    func loadCharacterList() -> [CharacterSetting] {
+        if let jsonData = UserDefaults.standard.data(forKey: "CharacterList") {
+            let jsonDecoder = JSONDecoder()
+            if let savedCharacterList = try? jsonDecoder.decode([CharacterSetting].self, from: jsonData) {
+                return savedCharacterList
+            }
+        }
+        // 기본값 또는 오류 처리
+        return []
+        
+        print("Success Load CharacterList!!")
+    }*/
 }

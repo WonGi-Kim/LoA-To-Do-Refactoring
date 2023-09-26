@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @Binding var isMainViewActive: Bool
     @Binding var characterList: [CharacterSetting]
+    @ObservedObject private var characterViewModel = CharacterViewModel()
     @State var newCharacter: CharacterSetting = CharacterSetting(
         charName: "", charClass: "",
         charLevel: "", isGuardianRaid: false,
@@ -67,6 +68,9 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter:
             isAbyssDungeon: false
         )
         characterList.wrappedValue.append(newChar)
+        
+        let characterViewModel = CharacterViewModel()
+        characterViewModel.saveDateForCreateCell(newChar)
         
         print("Setting에서 characterList", characterList.wrappedValue)
         print("Setting에서 characterList", characterList.wrappedValue.count)

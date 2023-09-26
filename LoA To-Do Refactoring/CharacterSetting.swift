@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharacterSetting {
+struct CharacterSetting: Codable {
     var charName: String = ""
     var charClass: String = ""
     var charLevel: String = ""
