@@ -11,7 +11,7 @@ struct SettingView: View {
     @Binding var isMainViewActive: Bool
     @Binding var characterList: [CharacterSetting]
     @ObservedObject private var characterViewModel = CharacterViewModel()
-    @State var newCharacter: CharacterSetting = CharacterSetting(
+    @State var newCharacter: CharacterSetting = CharacterSetting (
         charName: "", charClass: "",
         charLevel: "", isGuardianRaid: false,
         isChaosDungeon: false, isValtanRaid: false,
@@ -24,6 +24,7 @@ struct SettingView: View {
         
         VStack{
             charInfoInputSection(newCharacter: $newCharacter)
+            charToDoListSelection(newCharacter: $newCharacter)
             Spacer()
         }
         
@@ -56,7 +57,7 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter:
             charName: newCharacter.wrappedValue.charName,
             charClass: newCharacter.wrappedValue.charClass,
             charLevel: newCharacter.wrappedValue.charLevel,
-            isGuardianRaid: false,
+            isGuardianRaid: newCharacter.wrappedValue.isGuardianRaid,
             isChaosDungeon: false,
             isValtanRaid: false,
             isViakissRaid: false,
@@ -71,10 +72,7 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter:
         
         let characterViewModel = CharacterViewModel()
         characterViewModel.saveDateForCreateCell(newChar)
-        
-        print("Setting에서 characterList", characterList.wrappedValue)
-        print("Setting에서 characterList", characterList.wrappedValue.count)
-        print("Setting에서 newCharacter.wrappedValue.charName", newCharacter.wrappedValue.charName)
+
         
         
     } label: {
@@ -129,6 +127,43 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
                         .stroke(Color.gray, lineWidth: 1)
                 )
         }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+    }
+}
+
+//  MARK: charToDoListSelection
+func charToDoListSelection(newCharacter: Binding<CharacterSetting>) -> some View {
+    return VStack {
+        Button {
+            Toggle("가디언 토벌", isOn: newCharacter.isGuardianRaid)
+                .toggleStyle(CheckmarkToggleStyle())
+        } label: {
+            Image("리퍼")
+                .resizable()
+                .frame(width: 10, height: 10)
+        }
+    }
+}
+
+struct CheckmarkToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            Spacer()
+            configuration.label
+                .font(.title2)
+            Spacer()
+            Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
+                .resizable()
+                .frame(width: 40, height: 40)
+                .onTapGesture {
+                    configuration.isOn.toggle()
+                }
+            Spacer()
+        }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray, lineWidth: 1)
+            )
+            .frame(width: 410 ,height: 100)
     }
 }
 

@@ -31,7 +31,7 @@ struct MainView: View {
     
     @State var characterList: [CharacterSetting] = []
     
-    @ObservedObject private var characterViewModel = CharacterViewModel()
+    @ObservedObject var characterViewModel = CharacterViewModel()
     @State var encodeName: String = ""
     
 
@@ -39,19 +39,24 @@ struct MainView: View {
         NavigationView {
             
             List() {
-                ForEach(characterList.indices, id: \.self) { index in
-                    createCharacterCell(character: $characterList[index])
+                ForEach(characterViewModel.characterList.indices, id: \.self) { index in
+                    createCharacterCell(character: $characterViewModel.characterList[index])
                 }
+            }
+            
+            .onAppear(){
+                characterViewModel.loadDataForCreateCell()
             }
             
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
             .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, characterList: $characterList))
             
             
-            
             .sheet(isPresented: $isSettingViewActive) {
                 SettingView(isMainViewActive: $isSettingViewActive, characterList: $characterList)
             }
+            
+            
         }
     }
 }

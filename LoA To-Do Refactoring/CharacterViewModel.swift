@@ -119,7 +119,23 @@ class CharacterViewModel: ObservableObject {
     //  MARK: - FireStore연동
     //  MARK: Cell 생성을 위한 저장
     let db = Firestore.firestore()
-    
+    /**
+    var cellsInfo = CharacterSetting(
+        charName: "",
+        charClass: "",
+        charLevel: "",
+        isGuardianRaid: false,
+        isChaosDungeon: false,
+        isValtanRaid: false,
+        isViakissRaid: false,
+        isKoukuRaid: false,
+        isAbrelRaid: false,
+        isIliakanRaid: false,
+        isKamenRaid: false,
+        isAbyssRaid: false,
+        isAbyssDungeon: false
+        )
+     */
     
     func saveDateForCreateCell(_ characterList: CharacterSetting) {
         let charName = characterList.charName
@@ -166,7 +182,40 @@ class CharacterViewModel: ObservableObject {
         }
     }
     
-   
+    // MARK: Cell Data 가져오기
+    func loadDataForCreateCell() {
+        let cellCollection = db.collection("Cells")
+        
+        cellCollection.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching documents: \(error)")
+                //completion(nil, error)
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found.")
+                //completion([], nil)
+                return
+            }
+            
+            var characterList: [CharacterSetting] = []
+            
+            for document in documents {
+                if let characterData = document.data() as? [String: Any] {
+                    let character = CharacterSetting(data: characterData)
+                    characterList.append(character)
+                }
+            }
+            
+            // Firestore에서 데이터를 가져온 후에 characterList를 업데이트
+            DispatchQueue.main.async {
+                self.characterList = characterList
+                //print("loadDataForCreateCell에서 characterList: ", self.characterList)
+            }
+        }
+    }
+
     
     
     
