@@ -23,6 +23,15 @@ class CharacterViewModel: ObservableObject {
     @Published var characterImage: UIImage?
     @Published var characterList: [CharacterSetting] = []
     
+    @Published var newCharacter: CharacterSetting = CharacterSetting (
+        charName: "", charClass: "",
+        charLevel: "", isGuardianRaid: false,
+        isChaosDungeon: false, isValtanRaid: false,
+        isViakissRaid: false, isKoukuRaid: false,
+        isAbrelRaid: false, isIliakanRaid: false,
+        isKamenRaid: false, isAbyssRaid: false,
+        isAbyssDungeon: false)
+    
     struct ErrorResponse: Codable {
         let Code: Int
         let Description: String
@@ -216,31 +225,51 @@ class CharacterViewModel: ObservableObject {
         }
     }
 
-    
-    
-    
-    /**
-    //MARK: 캐릭터 셀 저장
-    func saveCharacterList(_ characterList: [CharacterSetting]) {
-        let jsonEncoder = JSONEncoder()
-        if let jsonData = try? jsonEncoder.encode(characterList) {
-            UserDefaults.standard.set(jsonData, forKey: "CharacterList")
+    struct DailyToggleStyle: ToggleStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack {
+                Spacer()
+                configuration.label
+                    .font(.title2)
+                Spacer()
+                Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
+                    .resizable()
+                    .frame(width: 35, height: 35)
+                    .onTapGesture {
+                        configuration.isOn.toggle()
+                    }
+                Spacer()
+            }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .frame(width: 410 ,height: 60)
         }
-        
-        print("Success Save CharacterList!!")
     }
-
-    // UserDefaults에서 데이터를 불러오는 메서드
-    func loadCharacterList() -> [CharacterSetting] {
-        if let jsonData = UserDefaults.standard.data(forKey: "CharacterList") {
-            let jsonDecoder = JSONDecoder()
-            if let savedCharacterList = try? jsonDecoder.decode([CharacterSetting].self, from: jsonData) {
-                return savedCharacterList
+    
+    struct CommanderToggleStyle: ToggleStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack {
+                Spacer()
+                configuration.label
+                    .font(.title2)
+                Spacer()
+                Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .onTapGesture {
+                        configuration.isOn.toggle()
+                    }
             }
+            .frame(width: 180, height: 40)
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
         }
-        // 기본값 또는 오류 처리
-        return []
-        
-        print("Success Load CharacterList!!")
-    }*/
+    }
+    
+    
 }

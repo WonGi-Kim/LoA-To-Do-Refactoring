@@ -11,29 +11,23 @@ struct SettingView: View {
     @Binding var isMainViewActive: Bool
     @Binding var characterList: [CharacterSetting]
     @ObservedObject private var characterViewModel = CharacterViewModel()
-    @State var newCharacter: CharacterSetting = CharacterSetting (
-        charName: "", charClass: "",
-        charLevel: "", isGuardianRaid: false,
-        isChaosDungeon: false, isValtanRaid: false,
-        isViakissRaid: false, isKoukuRaid: false,
-        isAbrelRaid: false, isIliakanRaid: false,
-        isKamenRaid: false, isAbyssRaid: false,
-        isAbyssDungeon: false)
+    
     
     var body: some View {
-        
-        VStack{
-            charInfoInputSection(newCharacter: $newCharacter)
-            charToDoListSelection(newCharacter: $newCharacter)
-            Spacer()
-        }
-        
-
+        ScrollView{
+            VStack{
+                charInfoInputSection(newCharacter: $characterViewModel.newCharacter)
+                charToDoListSelection(newCharacter: $characterViewModel.newCharacter)
+                Spacer()
+            }
+            
+            
             .navigationBarTitle("캐릭터 생성")
             .navigationBarItems(
                 leading: backButton(isMainViewActive: $isMainViewActive),
-                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, newCharacter: $newCharacter, characterList: $characterList)
+                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, newCharacter: $characterViewModel.newCharacter, characterList: $characterList)
             )
+        }
     }
 }
 
@@ -58,7 +52,7 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter:
             charClass: newCharacter.wrappedValue.charClass,
             charLevel: newCharacter.wrappedValue.charLevel,
             isGuardianRaid: newCharacter.wrappedValue.isGuardianRaid,
-            isChaosDungeon: false,
+            isChaosDungeon: newCharacter.wrappedValue.isChaosDungeon,
             isValtanRaid: false,
             isViakissRaid: false,
             isKoukuRaid: false,
@@ -106,7 +100,7 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
         
         HStack {
             TextField("아이템 레벨을 입력해주세요", text: newCharacter.charLevel)
-                .keyboardType(.numberPad)
+                .keyboardType(.decimalPad)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
@@ -133,39 +127,48 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
 //  MARK: charToDoListSelection
 func charToDoListSelection(newCharacter: Binding<CharacterSetting>) -> some View {
     return VStack {
-        Button {
-            Toggle("가디언 토벌", isOn: newCharacter.isGuardianRaid)
-                .toggleStyle(CheckmarkToggleStyle())
-        } label: {
-            Image("리퍼")
-                .resizable()
-                .frame(width: 10, height: 10)
+        HStack {
+            Text("일일 컨텐츠")
+                .font(.title3)
+                .padding(.top,10)
+            Spacer()
+        }.padding(.leading,20)
+        Toggle("가디언 토벌", isOn: newCharacter.isGuardianRaid)
+            .toggleStyle(CharacterViewModel.DailyToggleStyle())
+        Toggle("카오스 던전", isOn: newCharacter.isChaosDungeon)
+            .toggleStyle(CharacterViewModel.DailyToggleStyle())
+        
+        HStack {
+            Text("군단장 토벌")
+                .font(.title3)
+            Spacer()
+        }.padding(.leading,20)
+            .padding(.top, 10)
+        
+        HStack {
+            Toggle("발탄", isOn: newCharacter.isValtanRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+            Toggle("비아키스", isOn: newCharacter.isViakissRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
         }
+        HStack {
+            Toggle("쿠크세이튼", isOn: newCharacter.isKoukuRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+            Toggle("아브렐슈드", isOn: newCharacter.isAbrelRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+        }
+        HStack {
+            Toggle("일리아칸", isOn: newCharacter.isIliakanRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+            Toggle("카멘", isOn: newCharacter.isKamenRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+        }
+        
+        Spacer()
     }
 }
 
-struct CheckmarkToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            Spacer()
-            configuration.label
-                .font(.title2)
-            Spacer()
-            Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
-                .resizable()
-                .frame(width: 40, height: 40)
-                .onTapGesture {
-                    configuration.isOn.toggle()
-                }
-            Spacer()
-        }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.gray, lineWidth: 1)
-            )
-            .frame(width: 410 ,height: 100)
-    }
-}
+
 
 struct SettingView_Previews: PreviewProvider {
     @State static var isMainViewActive = false
