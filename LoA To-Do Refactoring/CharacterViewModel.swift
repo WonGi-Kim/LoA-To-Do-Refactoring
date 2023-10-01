@@ -235,9 +235,7 @@ class CharacterViewModel: ObservableObject {
                 Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
                     .resizable()
                     .frame(width: 35, height: 35)
-                    .onTapGesture {
-                        configuration.isOn.toggle()
-                    }
+                    
                 Spacer()
             }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                 .overlay(
@@ -245,6 +243,9 @@ class CharacterViewModel: ObservableObject {
                         .stroke(Color.gray, lineWidth: 1)
                 )
                 .frame(width: 410 ,height: 60)
+                .onTapGesture {
+                    configuration.isOn.toggle()
+                }
         }
     }
     
@@ -258,9 +259,7 @@ class CharacterViewModel: ObservableObject {
                 Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
                     .resizable()
                     .frame(width: 30, height: 30)
-                    .onTapGesture {
-                        configuration.isOn.toggle()
-                    }
+                    
             }
             .frame(width: 180, height: 40)
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
@@ -268,8 +267,10 @@ class CharacterViewModel: ObservableObject {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.gray, lineWidth: 1)
                 )
+                .onTapGesture {
+                    configuration.isOn.toggle()
+                }
         }
     }
-    
     
 }
