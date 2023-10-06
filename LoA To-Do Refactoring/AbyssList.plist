@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>dunName</key>
+		<string>--선택안함--</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(1티어) 고대 유적 엘베리아</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(1티어) 몽환의 궁전</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(2티어) 오만의 방주</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(2티어) 낙원의 문</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(3티어) 오레하의 우물</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(3티어) 빛의 성역 카양겔</string>
+	</dict>
+	<dict>
+		<key>dunName</key>
+		<string>(3티어) 혼돈의 상아탑</string>
+	</dict>
+</array>
+</plist>

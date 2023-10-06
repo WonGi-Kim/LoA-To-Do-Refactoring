@@ -21,6 +21,7 @@ struct CharacterSetting: Codable {
     var isKamenRaid: Bool = false
     var isAbyssRaid: Bool = false
     var isAbyssDungeon: Bool = false
+    var whatAbyssDungeon: String = ""
     
     init(data: [String: Any]) {
         if let charName = data["charName"] as? String,
@@ -35,7 +36,8 @@ struct CharacterSetting: Codable {
            let isIliakanRaid = data["isIliakanRaid"] as? Bool,
            let isKamenRaid = data["isKamenRaid"] as? Bool,
            let isAbyssRaid = data["isAbyssRaid"] as? Bool,
-           let isAbyssDungeon = data["isAbyssDungeon"] as? Bool
+           let isAbyssDungeon = data["isAbyssDungeon"] as? Bool,
+           let whatAbyssDungeon = data["whatAbyssDungeon"] as? String
         {
             self.charName = charName
             self.charClass = charClass
@@ -50,6 +52,7 @@ struct CharacterSetting: Codable {
             self.isKamenRaid = isKamenRaid
             self.isAbyssRaid = isAbyssRaid
             self.isAbyssDungeon = isAbyssDungeon
+            self.whatAbyssDungeon = whatAbyssDungeon
         }
     }
     init(
@@ -65,7 +68,8 @@ struct CharacterSetting: Codable {
             isIliakanRaid: Bool,
             isKamenRaid: Bool,
             isAbyssRaid: Bool,
-            isAbyssDungeon: Bool
+            isAbyssDungeon: Bool,
+            whatAbyssDungeon: String
         ) {
             self.charName = charName
             self.charClass = charClass
@@ -80,6 +84,7 @@ struct CharacterSetting: Codable {
             self.isKamenRaid = isKamenRaid
             self.isAbyssRaid = isAbyssRaid
             self.isAbyssDungeon = isAbyssDungeon
+            self.whatAbyssDungeon = whatAbyssDungeon
         }
 
 }

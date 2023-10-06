@@ -131,7 +131,6 @@ func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<C
                 character.wrappedValue.charClass = data.CharacterClassName ?? ""
                 character.wrappedValue.charLevel = data.ItemAvgLevel ?? ""
                 // 데이터가 업데이트되었음을 완료 클로저를 통해 알림
-                completion()
                 
                 characterViewModel.saveDateForCreateCell(character.wrappedValue)
             }
@@ -139,7 +138,6 @@ func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<C
             // 에러 처리
             print("API Error: \(error)")
             // 에러가 발생한 경우도 완료 클로저를 호출
-            completion()
         }
     }
 }

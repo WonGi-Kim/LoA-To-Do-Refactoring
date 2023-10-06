@@ -10,14 +10,14 @@ import SwiftUI
 struct SettingView: View {
     @Binding var isMainViewActive: Bool
     @Binding var characterList: [CharacterSetting]
-    @ObservedObject private var characterViewModel = CharacterViewModel()
+    @ObservedObject var characterViewModel = CharacterViewModel()
     
     
     var body: some View {
         ScrollView{
             VStack{
-                charInfoInputSection(newCharacter: $characterViewModel.newCharacter)
-                charToDoListSelection(newCharacter: $characterViewModel.newCharacter)
+                charInfoInputSection(tempNewCharacter: $characterViewModel.newCharacter)
+                charToDoListSelection(tempNewCharacter: $characterViewModel.newCharacter, characterViewModel: characterViewModel)
                 Spacer()
             }
             
@@ -25,7 +25,7 @@ struct SettingView: View {
             .navigationBarTitle("캐릭터 생성")
             .navigationBarItems(
                 leading: backButton(isMainViewActive: $isMainViewActive),
-                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, newCharacter: $characterViewModel.newCharacter, characterList: $characterList)
+                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, tempNewCharacter: $characterViewModel.newCharacter, characterList: $characterList)
             )
         }
     }
@@ -44,23 +44,24 @@ func backButton(isMainViewActive: Binding<Bool>) -> some View {
 }
 
 //  MARK: 캐릭터 생성 완료 버튼
-func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>) -> some View {
+func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>) -> some View {
     return Button {
         isMainViewActive.wrappedValue = false
         let newChar = CharacterSetting(
-            charName: newCharacter.wrappedValue.charName,
-            charClass: newCharacter.wrappedValue.charClass,
-            charLevel: newCharacter.wrappedValue.charLevel,
-            isGuardianRaid: newCharacter.wrappedValue.isGuardianRaid,
-            isChaosDungeon: newCharacter.wrappedValue.isChaosDungeon,
-            isValtanRaid: false,
-            isViakissRaid: false,
-            isKoukuRaid: false,
-            isAbrelRaid: false,
-            isIliakanRaid: false,
-            isKamenRaid: false,
-            isAbyssRaid: false,
-            isAbyssDungeon: false
+            charName: tempNewCharacter.wrappedValue.charName,
+            charClass: tempNewCharacter.wrappedValue.charClass,
+            charLevel: tempNewCharacter.wrappedValue.charLevel,
+            isGuardianRaid: tempNewCharacter.wrappedValue.isGuardianRaid,
+            isChaosDungeon: tempNewCharacter.wrappedValue.isChaosDungeon,
+            isValtanRaid: tempNewCharacter.wrappedValue.isValtanRaid,
+            isViakissRaid: tempNewCharacter.wrappedValue.isViakissRaid,
+            isKoukuRaid: tempNewCharacter.wrappedValue.isKoukuRaid,
+            isAbrelRaid: tempNewCharacter.wrappedValue.isAbrelRaid,
+            isIliakanRaid: tempNewCharacter.wrappedValue.isIliakanRaid,
+            isKamenRaid: tempNewCharacter.wrappedValue.isKamenRaid,
+            isAbyssRaid: tempNewCharacter.wrappedValue.isAbyssRaid,
+            isAbyssDungeon: tempNewCharacter.wrappedValue.isAbyssDungeon,
+            whatAbyssDungeon: tempNewCharacter.wrappedValue.whatAbyssDungeon
         )
         characterList.wrappedValue.append(newChar)
         
@@ -77,7 +78,7 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, newCharacter:
 }
 
 //  MARK: 캐릭터 기본정보 입력(이름, 레벨, 클래스)
-func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View {
+func charInfoInputSection(tempNewCharacter: Binding<CharacterSetting>) -> some View {
     return VStack {
         HStack {
             Text("캐릭터 명")
@@ -85,7 +86,7 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
         }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
         
         HStack {
-            TextField("캐릭터 이름을 입력해주세요", text: newCharacter.charName)
+            TextField("캐릭터 이름을 입력해주세요", text: tempNewCharacter.charName)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
@@ -99,7 +100,7 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
         }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
         
         HStack {
-            TextField("아이템 레벨을 입력해주세요", text: newCharacter.charLevel)
+            TextField("아이템 레벨을 입력해주세요", text: tempNewCharacter.charLevel)
                 .keyboardType(.decimalPad)
                 .padding()
                 .overlay(
@@ -114,7 +115,7 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
         }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
         
         HStack {
-            TextField("캐릭터 클래스를 선택해주세요", text: newCharacter.charClass)
+            TextField("캐릭터 클래스를 선택해주세요", text: tempNewCharacter.charClass)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
@@ -125,46 +126,74 @@ func charInfoInputSection(newCharacter: Binding<CharacterSetting>) -> some View 
 }
 
 //  MARK: charToDoListSelection
-func charToDoListSelection(newCharacter: Binding<CharacterSetting>) -> some View {
+func charToDoListSelection(tempNewCharacter: Binding<CharacterSetting>, characterViewModel: CharacterViewModel) -> some View {
+    
     return VStack {
         HStack {
             Text("일일 컨텐츠")
-                .font(.title3)
                 .padding(.top,10)
             Spacer()
         }.padding(.leading,20)
-        Toggle("가디언 토벌", isOn: newCharacter.isGuardianRaid)
+        Toggle("가디언 토벌", isOn: tempNewCharacter.isGuardianRaid)
             .toggleStyle(CharacterViewModel.DailyToggleStyle())
-        Toggle("카오스 던전", isOn: newCharacter.isChaosDungeon)
+        Toggle("카오스 던전", isOn: tempNewCharacter.isChaosDungeon)
             .toggleStyle(CharacterViewModel.DailyToggleStyle())
         
         HStack {
             Text("군단장 토벌")
-                .font(.title3)
             Spacer()
         }.padding(.leading,20)
             .padding(.top, 10)
         
         HStack {
-            Toggle("발탄", isOn: newCharacter.isValtanRaid)
+            Toggle("발탄", isOn: tempNewCharacter.isValtanRaid)
                 .toggleStyle(CharacterViewModel.CommanderToggleStyle())
-            Toggle("비아키스", isOn: newCharacter.isViakissRaid)
-                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
-        }
-        HStack {
-            Toggle("쿠크세이튼", isOn: newCharacter.isKoukuRaid)
-                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
-            Toggle("아브렐슈드", isOn: newCharacter.isAbrelRaid)
+            Toggle("비아키스", isOn: tempNewCharacter.isViakissRaid)
                 .toggleStyle(CharacterViewModel.CommanderToggleStyle())
         }
         HStack {
-            Toggle("일리아칸", isOn: newCharacter.isIliakanRaid)
+            Toggle("쿠크세이튼", isOn: tempNewCharacter.isKoukuRaid)
                 .toggleStyle(CharacterViewModel.CommanderToggleStyle())
-            Toggle("카멘", isOn: newCharacter.isKamenRaid)
+            Toggle("아브렐슈드", isOn: tempNewCharacter.isAbrelRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+        }
+        HStack {
+            Toggle("일리아칸", isOn: tempNewCharacter.isIliakanRaid)
+                .toggleStyle(CharacterViewModel.CommanderToggleStyle())
+            Toggle("카멘", isOn: tempNewCharacter.isKamenRaid)
                 .toggleStyle(CharacterViewModel.CommanderToggleStyle())
         }
         
-        Spacer()
+        HStack {
+            Text("어비스 컨텐츠")
+            Spacer()
+        }.padding(.leading,20)
+            .padding(.top, 10)
+        
+        Toggle("어비스 레이드: 아르고스", isOn: tempNewCharacter.isAbyssRaid)
+            .toggleStyle(CharacterViewModel.DailyToggleStyle())
+        
+        HStack {
+            Picker("어비스 던전 선택", selection: tempNewCharacter.whatAbyssDungeon) {
+                ForEach(characterViewModel.abyssArray, id: \.self) { dungeon in
+                        Text(dungeon)
+                        .foregroundColor(.white)
+                    
+                    }
+                }
+            .frame(width: 380, height: 25)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                
+                .onChange(of: characterViewModel.newCharacter.whatAbyssDungeon) { newValue in
+                    characterViewModel.updateIsAbyssDungeonValue()
+                }
+            
+                
+        }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 }
 
@@ -180,7 +209,7 @@ struct SettingView_Previews: PreviewProvider {
         isViakissRaid: false, isKoukuRaid: false,
         isAbrelRaid: false, isIliakanRaid: false,
         isKamenRaid: false, isAbyssRaid: false,
-        isAbyssDungeon: false)
+        isAbyssDungeon: false, whatAbyssDungeon: "")
     
     static var previews: some View {
         MainView()

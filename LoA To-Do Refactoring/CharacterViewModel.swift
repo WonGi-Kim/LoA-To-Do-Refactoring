@@ -30,7 +30,20 @@ class CharacterViewModel: ObservableObject {
         isViakissRaid: false, isKoukuRaid: false,
         isAbrelRaid: false, isIliakanRaid: false,
         isKamenRaid: false, isAbyssRaid: false,
-        isAbyssDungeon: false)
+        isAbyssDungeon: false, whatAbyssDungeon: "")
+    
+    @Published var classArray: [String] = []
+    @Published var abyssArray: [String] = []
+    @Published var selectedCharacterClass: String = ""
+    @Published var selectedAbyssDun: String = ""
+    
+    init() { //picker를 바로 사용하기 위해
+        loadAbyssDun()
+        loadClassNames()
+        //print("loadAbyssDun: ", abyssArray)
+        //print("abyssDunData: ", loadAbyssDun().abyssDunData)
+        //isAbyssDungeonUpdate()
+    }
     
     struct ErrorResponse: Codable {
         let Code: Int
@@ -163,7 +176,7 @@ class CharacterViewModel: ObservableObject {
             "isKamenRaid": characterList.isKamenRaid,
             "isAbyssRaid": characterList.isAbyssRaid,
             "isAbyssDungeon": characterList.isAbyssDungeon,
-            
+            "whatAbyssDungeon": characterList.whatAbyssDungeon
         ]
         
         let cellCollection = db.collection("Cells")
@@ -220,11 +233,12 @@ class CharacterViewModel: ObservableObject {
             // Firestore에서 데이터를 가져온 후에 characterList를 업데이트
             DispatchQueue.main.async {
                 self.characterList = characterList
-                //print("loadDataForCreateCell에서 characterList: ", self.characterList)
+                
             }
         }
     }
 
+    //MARK: - Toggle 스타일
     struct DailyToggleStyle: ToggleStyle {
         func makeBody(configuration: Configuration) -> some View {
             HStack {
@@ -270,6 +284,34 @@ class CharacterViewModel: ObservableObject {
                 .onTapGesture {
                     configuration.isOn.toggle()
                 }
+        }
+    }
+    
+    //MARK: - Plist Control
+    func loadClassNames() {
+        if let plistPath = Bundle.main.path(forResource: "CharacterClass", ofType: "plist"),
+              let charClassData = FileManager.default.contents(atPath: plistPath),
+              let charClassArray = try? PropertyListSerialization.propertyList(from: charClassData, format: nil) as? [[String: Any]] {
+                    classArray = charClassArray.compactMap { $0["className"] as? String}
+                    selectedCharacterClass = classArray.first ?? ""
+              }
+        
+    }
+    
+    func loadAbyssDun() {
+        if let plistPath = Bundle.main.path(forResource: "AbyssList", ofType: "plist"),
+           let abyssDunData = FileManager.default.contents(atPath: plistPath),
+           let abyssDunArray = try? PropertyListSerialization.propertyList(from: abyssDunData, format: nil) as? [[String: Any]] {
+                abyssArray = abyssDunArray.compactMap { $0["dunName"] as? String }
+                selectedAbyssDun = abyssArray.first ?? ""
+            }
+    }
+    
+    func updateIsAbyssDungeonValue() {
+        if newCharacter.whatAbyssDungeon == "--선택안함--" {
+            newCharacter.isAbyssDungeon = false
+        } else {
+            newCharacter.isAbyssDungeon = true
         }
     }
     
