@@ -24,6 +24,7 @@ class CharacterViewModel: ObservableObject {
     @Published var characterList: [CharacterSetting] = []
     
     @Published var newCharacter: CharacterSetting = CharacterSetting (
+        charImage:"",
         charName: "", charClass: "",
         charLevel: "", isGuardianRaid: false,
         isChaosDungeon: false, isValtanRaid: false,
@@ -32,10 +33,12 @@ class CharacterViewModel: ObservableObject {
         isKamenRaid: false, isAbyssRaid: false,
         isAbyssDungeon: false, whatAbyssDungeon: "")
     
+    //  Picker에 관련된 변수
     @Published var classArray: [String] = []
     @Published var abyssArray: [String] = []
     @Published var selectedCharacterClass: String = ""
     @Published var selectedAbyssDun: String = ""
+    
     
     init() { //picker를 바로 사용하기 위해
         loadAbyssDun()
@@ -163,6 +166,7 @@ class CharacterViewModel: ObservableObject {
         let charName = characterList.charName
         
         let dataToUpdateAndSave: [String: Any] = [
+            "charImage": characterList.charImage ?? "",
             "charName": characterList.charName ?? "",
             "charClass": characterList.charClass ?? "",
             "charLevel": characterList.charLevel ?? "",
@@ -176,7 +180,7 @@ class CharacterViewModel: ObservableObject {
             "isKamenRaid": characterList.isKamenRaid,
             "isAbyssRaid": characterList.isAbyssRaid,
             "isAbyssDungeon": characterList.isAbyssDungeon,
-            "whatAbyssDungeon": characterList.whatAbyssDungeon
+            "whatAbyssDungeon": characterList.whatAbyssDungeon ?? ""
         ]
         
         let cellCollection = db.collection("Cells")
@@ -312,6 +316,31 @@ class CharacterViewModel: ObservableObject {
             newCharacter.isAbyssDungeon = false
         } else {
             newCharacter.isAbyssDungeon = true
+        }
+    }
+    
+    //MARK: 리스트 삭제
+    func removeCells(at offsets: IndexSet) {
+        for index in offsets {
+            let characterToRemove = characterList[index]
+            removeCellsForFirestore(characterToRemove)
+        }
+        
+        characterList.remove(atOffsets: offsets)
+    }
+    
+    func removeCellsForFirestore(_ character: CharacterSetting) {
+        let characterName = character.charName
+        
+        let cellCollection = db.collection("Cells")
+        let documentRef = cellCollection.document(characterName)
+        
+        documentRef.delete { error in
+            if let error = error {
+                print("Error deleting document: \(error)")
+            } else {
+                print("Document deleted successfully!")
+            }
         }
     }
     

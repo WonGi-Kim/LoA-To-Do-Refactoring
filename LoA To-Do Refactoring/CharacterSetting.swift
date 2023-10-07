@@ -8,6 +8,7 @@
 import Foundation
 
 struct CharacterSetting: Codable {
+    var charImage: String = ""
     var charName: String = ""
     var charClass: String = ""
     var charLevel: String = ""
@@ -24,7 +25,8 @@ struct CharacterSetting: Codable {
     var whatAbyssDungeon: String = ""
     
     init(data: [String: Any]) {
-        if let charName = data["charName"] as? String,
+        if let charImage = data["charImage"] as? String,
+           let charName = data["charName"] as? String,
            let charClass = data["charClass"] as? String,
            let charLevel = data["charLevel"] as? String,
            let isGuardianRaid = data["isGuardianRaid"] as? Bool,
@@ -39,6 +41,7 @@ struct CharacterSetting: Codable {
            let isAbyssDungeon = data["isAbyssDungeon"] as? Bool,
            let whatAbyssDungeon = data["whatAbyssDungeon"] as? String
         {
+            self.charImage = charImage
             self.charName = charName
             self.charClass = charClass
             self.charLevel = charLevel
@@ -56,6 +59,7 @@ struct CharacterSetting: Codable {
         }
     }
     init(
+            charImage: String,
             charName: String,
             charClass: String,
             charLevel: String,
@@ -71,6 +75,7 @@ struct CharacterSetting: Codable {
             isAbyssDungeon: Bool,
             whatAbyssDungeon: String
         ) {
+            self.charImage = charImage
             self.charName = charName
             self.charClass = charClass
             self.charLevel = charLevel

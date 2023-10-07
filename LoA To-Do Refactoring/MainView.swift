@@ -28,6 +28,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MainView: View {
     @State var mainViewActive = false
     @State var isSettingViewActive = false
+    @State var isDetailViewActive = false
+    
+    @State var selectedCharacter: CharacterSetting?
     
     @State var characterList: [CharacterSetting] = []
     
@@ -40,8 +43,9 @@ struct MainView: View {
             
             List() {
                 ForEach(characterViewModel.characterList.indices, id: \.self) { index in
-                    createCharacterCell(character: $characterViewModel.characterList[index])
+                    createCharacterCell(isMainViewActive: $mainViewActive, character: $characterViewModel.characterList[index], isDetailViewActive: $isDetailViewActive)
                 }
+                .onDelete(perform: characterViewModel.removeCells)
             }
             
             .onAppear(){
@@ -49,13 +53,11 @@ struct MainView: View {
             }
             
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
-            .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, characterList: $characterList))
+            .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, characterList: $characterList,isSettingViewActive:$isSettingViewActive))
             
-            
-            .sheet(isPresented: $isSettingViewActive) {
-                SettingView(isMainViewActive: $isSettingViewActive, characterList: $characterList)
+            .refreshable {
+                characterViewModel.loadDataForCreateCell()
             }
-            
             
         }
     }
@@ -63,26 +65,28 @@ struct MainView: View {
 
 //  MARK: - MainView 구성 함수
 //  MARK: 캐릭터 생성 버튼
-func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Binding<[CharacterSetting]>) -> some View {
+func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>) -> some View {
     Button {
-        isMainViewActive.wrappedValue.toggle()
+        isSettingViewActive.wrappedValue.toggle()
         //print("main에서 characterList",characterList)
     } label: {
         Image.init(systemName: "plus")
             .foregroundColor(.white)
             .font(.title2)
-    }.background(
-        NavigationLink("",destination: SettingView(isMainViewActive: isMainViewActive, characterList: characterList),isActive : isMainViewActive)
+    }
+    .background(
+        NavigationLink("",destination: SettingView(isMainViewActive: isMainViewActive, isSettingViewActive: isSettingViewActive, characterList: characterList),isActive : isSettingViewActive)
             .opacity(0)
     )
 }
 
 // MARK: 캐릭터 셀 생성
-func createCharacterCell(character: Binding<CharacterSetting>) -> some View {
+func createCharacterCell(isMainViewActive: Binding<Bool>,character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>) -> some View {
     HStack {
         Button {
+            isDetailViewActive.wrappedValue.toggle()
             print("CharacterCell Tapped")
-            print("character:", character)
+            print("넘어가는 character: \(character)")
         } label: {
             HStack {
                 Image(character.wrappedValue.charClass)
@@ -98,6 +102,12 @@ func createCharacterCell(character: Binding<CharacterSetting>) -> some View {
                 Spacer()
                 
             }
+            .background(
+                NavigationLink("", destination: DetailView(isMainViewActive: isMainViewActive, character: character), isActive: isDetailViewActive)
+                .opacity(0)
+            )
+
+
         }.buttonStyle(PlainButtonStyle())
         
         Spacer()
@@ -127,6 +137,7 @@ func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<C
         case .success(let data):
             // API 호출 성공 시 데이터 업데이트
             DispatchQueue.main.async {
+                character.wrappedValue.charImage = data.CharacterImage ?? ""
                 character.wrappedValue.charName = data.CharacterName ?? ""
                 character.wrappedValue.charClass = data.CharacterClassName ?? ""
                 character.wrappedValue.charLevel = data.ItemAvgLevel ?? ""

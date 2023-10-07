@@ -12,6 +12,7 @@
 		A8388DE4FA11C520C95B87BE /* Pods_LoA_To_Do_RefactoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4715B8D1D6702BF5A70D441 /* Pods_LoA_To_Do_RefactoringTests.framework */; };
 		B219BC2E2ACE86B5008123E4 /* AbyssList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B219BC2D2ACE86B5008123E4 /* AbyssList.plist */; };
 		B219BC342ACE893C008123E4 /* CharacterClass.plist in Resources */ = {isa = PBXBuildFile; fileRef = B219BC332ACE893C008123E4 /* CharacterClass.plist */; };
+		B219BC382ACFDEA7008123E4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC372ACFDEA7008123E4 /* DetailView.swift */; };
 		B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */; };
 		B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545922AB57A5B009D69F0 /* Assets.xcassets */; };
 		B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		8C1AD484397375AF77147A74 /* Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests/Pods-LoA To-Do Refactoring-LoA To-Do RefactoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B219BC2D2ACE86B5008123E4 /* AbyssList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AbyssList.plist; sourceTree = "<group>"; };
 		B219BC332ACE893C008123E4 /* CharacterClass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CharacterClass.plist; sourceTree = "<group>"; };
+		B219BC372ACFDEA7008123E4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoA To-Do Refactoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringApp.swift; sourceTree = "<group>"; };
 		B26545922AB57A5B009D69F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			children = (
 				B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */,
 				B26545BD2AB57A91009D69F0 /* MainView.swift */,
+				B219BC372ACFDEA7008123E4 /* DetailView.swift */,
 				B26545C32AB8289E009D69F0 /* SettingView.swift */,
 				B26545C52AB839E9009D69F0 /* CharacterSetting.swift */,
 				B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */,
@@ -444,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */,
+				B219BC382ACFDEA7008123E4 /* DetailView.swift in Sources */,
 				B26545C42AB8289E009D69F0 /* SettingView.swift in Sources */,
 				B26545BE2AB57A91009D69F0 /* MainView.swift in Sources */,
 				B26545CE2ABEBC73009D69F0 /* characterProfiles.swift in Sources */,

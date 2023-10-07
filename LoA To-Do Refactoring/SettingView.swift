@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @Binding var isMainViewActive: Bool
+    @Binding var isSettingViewActive: Bool
     @Binding var characterList: [CharacterSetting]
     @ObservedObject var characterViewModel = CharacterViewModel()
     
@@ -25,7 +26,7 @@ struct SettingView: View {
             .navigationBarTitle("캐릭터 생성")
             .navigationBarItems(
                 leading: backButton(isMainViewActive: $isMainViewActive),
-                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, tempNewCharacter: $characterViewModel.newCharacter, characterList: $characterList)
+                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, tempNewCharacter: $characterViewModel.newCharacter, characterList: $characterList, isSettingViewActive: $isSettingViewActive)
             )
         }
     }
@@ -44,10 +45,11 @@ func backButton(isMainViewActive: Binding<Bool>) -> some View {
 }
 
 //  MARK: 캐릭터 생성 완료 버튼
-func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>) -> some View {
+func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>) -> some View {
     return Button {
-        isMainViewActive.wrappedValue = false
+        isSettingViewActive.wrappedValue = false
         let newChar = CharacterSetting(
+            charImage: "",
             charName: tempNewCharacter.wrappedValue.charName,
             charClass: tempNewCharacter.wrappedValue.charClass,
             charLevel: tempNewCharacter.wrappedValue.charLevel,
@@ -201,8 +203,10 @@ func charToDoListSelection(tempNewCharacter: Binding<CharacterSetting>, characte
 
 struct SettingView_Previews: PreviewProvider {
     @State static var isMainViewActive = false
+    @State static var isSettingViewActive = false
     @State static var characterList: [CharacterSetting] = []
     @State static var newCharacter: CharacterSetting = CharacterSetting(
+        charImage:"",
         charName: "", charClass: "",
         charLevel: "", isGuardianRaid: false,
         isChaosDungeon: false, isValtanRaid: false,
@@ -214,7 +218,7 @@ struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
             .sheet(isPresented: $isMainViewActive) {
-                SettingView(isMainViewActive: $isMainViewActive, characterList: $characterList)
+                SettingView(isMainViewActive: $isMainViewActive, isSettingViewActive: $isSettingViewActive, characterList: $characterList)
             }
     }
 }
