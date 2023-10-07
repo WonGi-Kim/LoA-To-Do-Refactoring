@@ -11,11 +11,27 @@ struct DetailView: View {
     
     @Binding var isMainViewActive: Bool
     @Binding var character: CharacterSetting
-    //@Binding var characterList: [CharacterSetting]
-    @ObservedObject var characterViewModel = CharacterViewModel()
+    @ObservedObject var characterViewModel: CharacterViewModel
+    
+    init(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>) {
+        self._isMainViewActive = isMainViewActive
+        self._character = character
+        self.characterViewModel = CharacterViewModel()
+        if character.wrappedValue.charName != characterViewModel.characterList.first?.charName {
+            // 이미 데이터가 로드되었는지 확인 후 로드
+            guard let encodeName = character.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+                return
+            }
+
+            characterViewModel.getCharacterProfiles(characterName: encodeName) { result in
+                // 이하 로직은 그대로 유지
+                // ...
+            }
+        }
+    }
     
     var body: some View {
-        ScrollView{
+        ScrollView {
             VStack {
                 AsyncImage(url: URL(string: character.charImage)!) { phase in
                     switch phase {
@@ -44,21 +60,7 @@ struct DetailView: View {
         .navigationBarTitle("캐릭터 관리")
         .navigationBarItems(
             leading: backButton(isMainViewActive: $isMainViewActive)
-            )
-        .onAppear {
-            if character.charName != characterViewModel.characterList.first?.charName {
-                // 이미 데이터가 로드되었는지 확인 후 로드
-                guard let encodeName = character.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                    return
-                }
-
-                characterViewModel.getCharacterProfiles(characterName: encodeName) { result in
-                    // 이하 로직은 그대로 유지
-                    // ...
-                }
-            }
-            print("넘어온 캐릭터: \(character)")
-        }
+        )
     }
 }
 
@@ -73,7 +75,6 @@ struct DetailView_Previews: PreviewProvider {
         isAbrelRaid: false, isIliakanRaid: false,
         isKamenRaid: false, isAbyssRaid: false,
         isAbyssDungeon: false, whatAbyssDungeon: "")
-    //@State static var characterList: [CharacterSetting] = []
     
     static var previews: some View {
         MainView()
