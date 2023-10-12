@@ -11,24 +11,16 @@ struct DetailView: View {
     
     @Binding var isMainViewActive: Bool
     @Binding var character: CharacterSetting
-    @ObservedObject var characterViewModel: CharacterViewModel
+    @ObservedObject var characterViewModel = CharacterViewModel()
+    @ObservedObject var detailViewModel = DetailViewViewModel()
     
-    init(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>) {
-        self._isMainViewActive = isMainViewActive
-        self._character = character
-        self.characterViewModel = CharacterViewModel()
-        if character.wrappedValue.charName != characterViewModel.characterList.first?.charName {
-            // 이미 데이터가 로드되었는지 확인 후 로드
-            guard let encodeName = character.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-                return
-            }
-
-            characterViewModel.getCharacterProfiles(characterName: encodeName) { result in
-                // 이하 로직은 그대로 유지
-                // ...
-            }
-        }
-    }
+    @State var characterToDoInfo : ManageToDoInfo = ManageToDoInfo(
+        charName: "",
+        isChaosDungeonDone: false,isGuardianRaidDone: false,
+        isValtanRaidDone: false,isViakissRaidDone: false,
+        isKoukuRaidDone: false,isAbrelRaidDone: false,
+        isIliakanRaidDone: false,isKamenRaidDone: false,
+        isAbyssRaidDone: false,isAbyssDungeonDone: false)
     
     var body: some View {
         ScrollView {
@@ -55,13 +47,29 @@ struct DetailView: View {
                 Text("캐릭터 이름: \(character.charName)")
                 Text("캐릭터 클래스: \(character.charClass)")
                 Text("아이템 레벨: \(character.charLevel)")
+                Text("카던: \(String(character.isChaosDungeon))")
+                //Text("가토: \(String((character.isGuardianRaid))")
+                
+                Button {
+                    characterToDoInfo.charName = character.charName
+                    detailViewModel.toDoInfo.charName = characterToDoInfo.charName
+                    print("characterToDoInfo.charName: \(characterToDoInfo.charName)")
+                    print("detailViewModel.toDoInfo.charName: \(detailViewModel.toDoInfo.charName)")
+                    detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                } label: {
+                    Text("시험용 FireStore등록 버튼")
+                }
             }
         }
         .navigationBarTitle("캐릭터 관리")
         .navigationBarItems(
             leading: backButton(isMainViewActive: $isMainViewActive)
         )
+        .onAppear {
+            print("넘어온 character: \(character)")
+        }
     }
+       
 }
 
 struct DetailView_Previews: PreviewProvider {

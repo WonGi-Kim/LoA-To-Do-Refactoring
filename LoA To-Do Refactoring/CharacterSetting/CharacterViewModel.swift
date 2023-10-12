@@ -144,23 +144,6 @@ class CharacterViewModel: ObservableObject {
     //  MARK: - FireStore연동
     //  MARK: Cell 생성을 위한 저장
     let db = Firestore.firestore()
-    /**
-    var cellsInfo = CharacterSetting(
-        charName: "",
-        charClass: "",
-        charLevel: "",
-        isGuardianRaid: false,
-        isChaosDungeon: false,
-        isValtanRaid: false,
-        isViakissRaid: false,
-        isKoukuRaid: false,
-        isAbrelRaid: false,
-        isIliakanRaid: false,
-        isKamenRaid: false,
-        isAbyssRaid: false,
-        isAbyssDungeon: false
-        )
-     */
     
     func saveDateForCreateCell(_ characterList: CharacterSetting) {
         let charName = characterList.charName

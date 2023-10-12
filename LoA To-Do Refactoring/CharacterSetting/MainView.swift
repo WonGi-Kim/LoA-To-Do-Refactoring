@@ -30,10 +30,19 @@ struct MainView: View {
     @State var isSettingViewActive = false
     @State var isDetailViewActive = false
     
-    @State var selectedCharacter: CharacterSetting?
+    @State var selectedCharacter: CharacterSetting = CharacterSetting(
+        charImage: "", charName: "",
+        charClass: "", charLevel: "",
+        isGuardianRaid: false, isChaosDungeon: false,
+        isValtanRaid: false, isViakissRaid: false,
+        isKoukuRaid: false, isAbrelRaid: false,
+        isIliakanRaid: false, isKamenRaid: false,
+        isAbyssRaid: false, isAbyssDungeon: false,
+        whatAbyssDungeon: "")
     
     @State var characterList: [CharacterSetting] = []
     
+    //@ObservedObject var detailViewViewModel = DetailViewViewModel()
     @ObservedObject var characterViewModel = CharacterViewModel()
     @State var encodeName: String = ""
     
@@ -42,7 +51,8 @@ struct MainView: View {
         NavigationView {
             List() {
                 ForEach(characterViewModel.characterList.indices, id: \.self) { index in
-                    createCharacterCell(isMainViewActive: $mainViewActive, character: $characterViewModel.characterList[index], isDetailViewActive: $isDetailViewActive)
+                    createCharacterCell(isMainViewActive: $mainViewActive, character: $characterViewModel.characterList[index], isDetailViewActive: $isDetailViewActive,
+                                        selectedCharacter: $selectedCharacter)
                 }
                 .onDelete(perform: characterViewModel.removeCells)
             }
@@ -72,10 +82,11 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
     )
 }
 
-func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>) -> some View {
+func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>, selectedCharacter: Binding<CharacterSetting>) -> some View {
     HStack {
         Button {
             isDetailViewActive.wrappedValue.toggle()
+            selectedCharacter.wrappedValue = character.wrappedValue
         } label: {
             HStack {
                 Image(character.wrappedValue.charClass)
@@ -92,7 +103,7 @@ func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<Cha
                 
             }
             .background(
-                NavigationLink("", destination: DetailView(isMainViewActive: isMainViewActive, character: character), isActive: isDetailViewActive)
+                NavigationLink("", destination: DetailView(isMainViewActive: isMainViewActive, character: selectedCharacter), isActive: isDetailViewActive)
                 .opacity(0)
             )
         }.buttonStyle(PlainButtonStyle())

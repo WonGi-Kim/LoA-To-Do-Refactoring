@@ -13,6 +13,8 @@
 		B219BC2E2ACE86B5008123E4 /* AbyssList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B219BC2D2ACE86B5008123E4 /* AbyssList.plist */; };
 		B219BC342ACE893C008123E4 /* CharacterClass.plist in Resources */ = {isa = PBXBuildFile; fileRef = B219BC332ACE893C008123E4 /* CharacterClass.plist */; };
 		B219BC382ACFDEA7008123E4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC372ACFDEA7008123E4 /* DetailView.swift */; };
+		B219BC3A2AD7BA2E008123E4 /* DetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC392AD7BA2E008123E4 /* DetailViewViewModel.swift */; };
+		B219BC3E2AD7BC2D008123E4 /* ManageToDoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC3D2AD7BC2D008123E4 /* ManageToDoInfo.swift */; };
 		B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */; };
 		B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545922AB57A5B009D69F0 /* Assets.xcassets */; };
 		B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */; };
@@ -60,6 +62,8 @@
 		B219BC2D2ACE86B5008123E4 /* AbyssList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AbyssList.plist; sourceTree = "<group>"; };
 		B219BC332ACE893C008123E4 /* CharacterClass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CharacterClass.plist; sourceTree = "<group>"; };
 		B219BC372ACFDEA7008123E4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		B219BC392AD7BA2E008123E4 /* DetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewViewModel.swift; sourceTree = "<group>"; };
+		B219BC3D2AD7BC2D008123E4 /* ManageToDoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageToDoInfo.swift; sourceTree = "<group>"; };
 		B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoA To-Do Refactoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringApp.swift; sourceTree = "<group>"; };
 		B26545922AB57A5B009D69F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,6 +126,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B219BC3F2AD7BCB1008123E4 /* CharacterSetting */ = {
+			isa = PBXGroup;
+			children = (
+				B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */,
+				B26545BD2AB57A91009D69F0 /* MainView.swift */,
+				B26545C32AB8289E009D69F0 /* SettingView.swift */,
+				B26545C52AB839E9009D69F0 /* CharacterSetting.swift */,
+				B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */,
+			);
+			path = CharacterSetting;
+			sourceTree = "<group>";
+		};
+		B219BC402AD7BCD5008123E4 /* CharacterManaging */ = {
+			isa = PBXGroup;
+			children = (
+				B219BC372ACFDEA7008123E4 /* DetailView.swift */,
+				B219BC392AD7BA2E008123E4 /* DetailViewViewModel.swift */,
+				B219BC3D2AD7BC2D008123E4 /* ManageToDoInfo.swift */,
+			);
+			path = CharacterManaging;
+			sourceTree = "<group>";
+		};
 		B26545822AB57A59009D69F0 = {
 			isa = PBXGroup;
 			children = (
@@ -147,12 +173,8 @@
 		B265458D2AB57A59009D69F0 /* LoA To-Do Refactoring */ = {
 			isa = PBXGroup;
 			children = (
-				B26545D12ABEC051009D69F0 /* CharacterViewModel.swift */,
-				B26545BD2AB57A91009D69F0 /* MainView.swift */,
-				B219BC372ACFDEA7008123E4 /* DetailView.swift */,
-				B26545C32AB8289E009D69F0 /* SettingView.swift */,
-				B26545C52AB839E9009D69F0 /* CharacterSetting.swift */,
-				B26545CD2ABEBC73009D69F0 /* characterProfiles.swift */,
+				B219BC3F2AD7BCB1008123E4 /* CharacterSetting */,
+				B219BC402AD7BCD5008123E4 /* CharacterManaging */,
 				B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */,
 				B219BC332ACE893C008123E4 /* CharacterClass.plist */,
 				B219BC2D2ACE86B5008123E4 /* AbyssList.plist */,
@@ -452,6 +474,8 @@
 				B26545BE2AB57A91009D69F0 /* MainView.swift in Sources */,
 				B26545CE2ABEBC73009D69F0 /* characterProfiles.swift in Sources */,
 				B26545D22ABEC051009D69F0 /* CharacterViewModel.swift in Sources */,
+				B219BC3A2AD7BA2E008123E4 /* DetailViewViewModel.swift in Sources */,
+				B219BC3E2AD7BC2D008123E4 /* ManageToDoInfo.swift in Sources */,
 				B265459B2AB57A5B009D69F0 /* LoA_To_Do_Refactoring.xcdatamodeld in Sources */,
 				B26545C62AB839E9009D69F0 /* CharacterSetting.swift in Sources */,
 				B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */,
