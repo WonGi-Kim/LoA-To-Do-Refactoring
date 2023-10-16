@@ -34,8 +34,8 @@ class DetailViewViewModel: ObservableObject {
             "abyssDungeon": toDoInfo.isAbyssDungeonDone
         ]
         
-        let cellCollection = db.collection("ManageCharacter")
-        let documentRef = cellCollection.document(charName)
+        let charCollection = db.collection("ManageCharacter")
+        let documentRef = charCollection.document(charName)
         
         documentRef.getDocument{ (document, error) in
             if let document = document, document.exists {
@@ -56,6 +56,35 @@ class DetailViewViewModel: ObservableObject {
                     }
                 }
             }
+        }
+    }
+    
+    func deleteDataForFirestore() {
+        
+    }
+    
+    //MARK: - Contents Toggle
+    
+    struct ContentsToggleStyle: ToggleStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack {
+                Spacer()
+                configuration.label
+                    .font(.title2)
+                Spacer()
+                Text(configuration.isOn ? "완료" : "미완")
+                    .font(.title2)
+                    
+                Spacer()
+            }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .frame(width: 410 ,height: 60)
+                .onTapGesture {
+                    configuration.isOn.toggle()
+                }
         }
     }
 }

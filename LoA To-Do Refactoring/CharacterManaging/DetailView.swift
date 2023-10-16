@@ -20,44 +20,70 @@ struct DetailView: View {
         isValtanRaidDone: false,isViakissRaidDone: false,
         isKoukuRaidDone: false,isAbrelRaidDone: false,
         isIliakanRaidDone: false,isKamenRaidDone: false,
-        isAbyssRaidDone: false,isAbyssDungeonDone: false)
+        isAbyssRaidDone: false,isAbyssDungeonDone: false
+    )
     
     var body: some View {
         ScrollView {
             VStack {
-                AsyncImage(url: URL(string: character.charImage)!) { phase in
-                    switch phase {
-                    case .empty:
-                        // 이미지가 로드되지 않은 경우, 로딩 중 뷰 표시
-                        ProgressView()
-                    case .success(let image):
-                        // 이미지가 로드되면 표시
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    case .failure:
-                        // 이미지 로드 실패 시 에러 이미지 또는 기본 이미지 표시
-                        Image(systemName: "photo")
-                    @unknown default:
-                        // 기본 이미지 표시
-                        Image(systemName: "photo")
+                //  기본 정보
+                HStack{
+                    VStack {
+                        Spacer()
+                        Text("캐릭터 이름: ")
+                        Text("\(character.charName)")
+                        Spacer()
+                        Text("캐릭터 클래스: ")
+                        Text("\(character.charClass)")
+                        Spacer()
+                        Text("아이템 레벨: ")
+                        Text("\(character.charLevel)")
+                        Spacer()
                     }
+                    AsyncImage(url: URL(string: character.charImage)!) { phase in
+                        switch phase {
+                        case .empty:
+                            // 이미지가 로드되지 않은 경우, 로딩 중 뷰 표시
+                            ProgressView()
+                        case .success(let image):
+                            // 이미지가 로드되면 표시
+                            image
+                                .resizable()
+                                .frame(width: 300, height: 400, alignment: .trailing)
+                        case .failure:
+                            // 이미지 로드 실패 시 에러 이미지 또는 기본 이미지 표시
+                            Image(systemName: "photo")
+                        @unknown default:
+                            // 기본 이미지 표시
+                            Image(systemName: "photo")
+                        }
+                    }
+                    
                 }
                 
-                Text("캐릭터 이름: \(character.charName)")
-                Text("캐릭터 클래스: \(character.charClass)")
-                Text("아이템 레벨: \(character.charLevel)")
-                Text("카던: \(String(character.isChaosDungeon))")
-                //Text("가토: \(String((character.isGuardianRaid))")
-                
+                // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
                 Button {
                     characterToDoInfo.charName = character.charName
                     detailViewModel.toDoInfo.charName = characterToDoInfo.charName
-                    print("characterToDoInfo.charName: \(characterToDoInfo.charName)")
-                    print("detailViewModel.toDoInfo.charName: \(detailViewModel.toDoInfo.charName)")
                     detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
                 } label: {
                     Text("시험용 FireStore등록 버튼")
+                }
+                
+                if character.isChaosDungeon {
+                    Button {
+                        characterToDoInfo.isChaosDungeonDone.toggle()
+
+                    } label: {
+                        Text("카오스 던전")
+                    }
+                }
+                if character.isGuardianRaid {
+                    Toggle("가디언 토벌", isOn: $characterToDoInfo.isGuardianRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
                 }
             }
         }
@@ -65,9 +91,6 @@ struct DetailView: View {
         .navigationBarItems(
             leading: backButton(isMainViewActive: $isMainViewActive)
         )
-        .onAppear {
-            print("넘어온 character: \(character)")
-        }
     }
        
 }

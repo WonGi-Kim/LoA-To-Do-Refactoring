@@ -307,6 +307,7 @@ class CharacterViewModel: ObservableObject {
         for index in offsets {
             let characterToRemove = characterList[index]
             removeCellsForFirestore(characterToRemove)
+            //removeDataForFirestore(characterToRemove)
         }
         
         characterList.remove(atOffsets: offsets)
@@ -326,5 +327,6 @@ class CharacterViewModel: ObservableObject {
             }
         }
     }
+    
     
 }
