@@ -14,6 +14,14 @@ import FirebaseFirestore
 
 class DetailViewViewModel: ObservableObject {
     @Published var toDoInfo: ManageToDoInfo = ManageToDoInfo()
+    @Published var characterToDoInfo : ManageToDoInfo = ManageToDoInfo(
+        charName: "",
+        isChaosDungeonDone: false,isGuardianRaidDone: false,
+        isValtanRaidDone: false,isViakissRaidDone: false,
+        isKoukuRaidDone: false,isAbrelRaidDone: false,
+        isIliakanRaidDone: false,isKamenRaidDone: false,
+        isAbyssRaidDone: false,isAbyssDungeonDone: false
+    )
     
     let db = Firestore.firestore()
     
@@ -43,7 +51,7 @@ class DetailViewViewModel: ObservableObject {
                     if let error {
                         print("Error updating document: \(error)")
                     } else {
-                        print("Document updated successfully!")
+                        print("Document for ManageCharacter updated successfully!")
                     }
                 }
             } else {
@@ -52,16 +60,34 @@ class DetailViewViewModel: ObservableObject {
                     if let error = error {
                         print("Error adding document: \(error)")
                     } else {
-                        print("Document added successfully!")
+                        print("Document for ManageCharacter added successfully!")
                     }
                 }
             }
         }
     }
     
-    func deleteDataForFirestore() {
+    func loadDataFromFireStore() {
+        let manageCharacterCollection = db.collection("ManageCharacter")
         
+        let characterID = characterToDoInfo.charName ?? ""
+        manageCharacterCollection.document(characterID).getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error fetching document: \(error)")
+                return
+            }
+            guard let document = snapshot else {
+                print("Document does not exist")
+                return
+            }
+            if document.exists {
+                if let data = document.data() {
+                    
+                }
+            }
+        }
     }
+    
     
     //MARK: - Contents Toggle
     
@@ -71,20 +97,22 @@ class DetailViewViewModel: ObservableObject {
                 Spacer()
                 configuration.label
                     .font(.title2)
+                    .opacity(configuration.isOn ? 0.2 : 1)
                 Spacer()
                 Text(configuration.isOn ? "완료" : "미완")
                     .font(.title2)
-                    
+                    .opacity(configuration.isOn ? 0.2 : 1)
                 Spacer()
-            }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .frame(width: 410 ,height: 60)
-                .onTapGesture {
-                    configuration.isOn.toggle()
-                }
+            }
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray, lineWidth: 1)
+                    .background(Color.gray.opacity(configuration.isOn ? 0.2 : 0.9))
+            )
+            .frame(width:400 ,height: 60)
+                
         }
     }
+    
 }

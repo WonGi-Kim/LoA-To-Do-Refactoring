@@ -20,7 +20,7 @@ enum CustomError: Error {
 
 class CharacterViewModel: ObservableObject {
     @Published var characterProfiles: CharacterProfiles?
-    @Published var characterImage: UIImage?
+    @Published var characterImage: String = ""
     @Published var characterList: [CharacterSetting] = []
     
     @Published var newCharacter: CharacterSetting = CharacterSetting (
@@ -175,7 +175,7 @@ class CharacterViewModel: ObservableObject {
                     if let error {
                         print("Error updating document: \(error)")
                     } else {
-                        print("Document updated successfully!")
+                        print("Document for Cells updated successfully!")
                     }
                 }
             } else {
@@ -184,7 +184,7 @@ class CharacterViewModel: ObservableObject {
                     if let error = error {
                         print("Error adding document: \(error)")
                     } else {
-                        print("Document added successfully!")
+                        print("Document for Cells added successfully!")
                     }
                 }
             }
@@ -243,7 +243,7 @@ class CharacterViewModel: ObservableObject {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.gray, lineWidth: 1)
                 )
-                .frame(width: 410 ,height: 60)
+                .frame(width: 380 ,height: 60)
                 .onTapGesture {
                     configuration.isOn.toggle()
                 }
@@ -307,7 +307,7 @@ class CharacterViewModel: ObservableObject {
         for index in offsets {
             let characterToRemove = characterList[index]
             removeCellsForFirestore(characterToRemove)
-            //removeDataForFirestore(characterToRemove)
+            removeManageCharacterInFireStore(characterToRemove)
         }
         
         characterList.remove(atOffsets: offsets)
@@ -323,10 +323,24 @@ class CharacterViewModel: ObservableObject {
             if let error = error {
                 print("Error deleting document: \(error)")
             } else {
-                print("Document deleted successfully!")
+                print("Document in Cells deleted successfully!")
             }
         }
     }
     
+    func removeManageCharacterInFireStore(_ character: CharacterSetting) {
+        let characterName = character.charName
+        
+        let manageCharacterCollection = db.collection("ManageCharacter")
+        let documentRef = manageCharacterCollection.document(characterName)
+        
+        documentRef.delete { error in
+            if let error = error {
+                print("Error deleting document: \(error)")
+            } else {
+                print("Document in ManageCharacter deleted successfully!")
+            }
+        }
+    }
     
 }

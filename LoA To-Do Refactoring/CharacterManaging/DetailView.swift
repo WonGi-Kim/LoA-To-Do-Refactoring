@@ -30,10 +30,18 @@ struct DetailView: View {
                 HStack{
                     VStack {
                         Spacer()
-                        Text("캐릭터 이름: ")
-                        Text("\(character.charName)")
+                        VStack{
+                            Text("닉네임: ")
+                                .font(.system(size: 14))
+                            Text("\(character.charName)")
+                        }
+                        .padding(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
                         Spacer()
-                        Text("캐릭터 클래스: ")
+                        Text("클래스: ")
                         Text("\(character.charClass)")
                         Spacer()
                         Text("아이템 레벨: ")
@@ -59,38 +67,91 @@ struct DetailView: View {
                         }
                     }
                     
-                }
+                }.padding(.bottom,20)
                 
-                // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
-                Button {
-                    characterToDoInfo.charName = character.charName
-                    detailViewModel.toDoInfo.charName = characterToDoInfo.charName
-                    detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
-                } label: {
-                    Text("시험용 FireStore등록 버튼")
-                }
-                
-                if character.isChaosDungeon {
-                    Button {
-                        characterToDoInfo.isChaosDungeonDone.toggle()
-
-                    } label: {
-                        Text("카오스 던전")
+                // 일일 컨텐츠
+                if character.isChaosDungeon == false && character.isGuardianRaid == false {
+                    VStack {
+                        HStack{
+                            Text("일일 컨텐츠")
+                                .padding(.leading,10)
+                            Spacer()
+                        }
+                        Text("There is not choiced Daily Contents..!!")
                     }
+                } else {
+                    HStack {
+                        Text("일일 컨텐츠")
+                            .padding(.leading,10)
+                        Spacer()
+                    }
+                }
+                if character.isChaosDungeon {
+                    Toggle("카오스 던전", isOn: $characterToDoInfo.isChaosDungeonDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isChaosDungeonDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            print(characterToDoInfo.isChaosDungeonDone)
+                        }
                 }
                 if character.isGuardianRaid {
                     Toggle("가디언 토벌", isOn: $characterToDoInfo.isGuardianRaidDone)
                         .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
                         .onTapGesture {
+                            characterToDoInfo.isGuardianRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                
+                // 군단장 레이드
+                if character.isValtanRaid == false && character.isViakissRaid == false && character.isKoukuRaid == false &&
+                    character.isAbrelRaid == false && character.isIliakanRaid == false && character.isKamenRaid == false {
+                    VStack {
+                        HStack{
+                            Text("군단장 레이드")
+                                .padding(.leading,10)
+                            Spacer()
+                        }
+                        Text("There is not choiced Commender Raid Contents..!!")
+                    }
+                } else {
+                    HStack {
+                        Text("군단장 레이드")
+                            .padding(.leading,10)
+                        Spacer()
+                    }
+                }
+                if character.isValtanRaid {
+                    Toggle("군단장 발탄 ", isOn: $characterToDoInfo.isValtanRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isValtanRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                if character.isViakissRaid {
+                    Toggle("가디언 토벌", isOn: $characterToDoInfo.isViakissRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isViakissRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
                         }
                 }
             }
         }
+        
+        
+        
         .navigationBarTitle("캐릭터 관리")
         .navigationBarItems(
             leading: backButton(isMainViewActive: $isMainViewActive)
         )
+        .onAppear {
+            // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
+            characterToDoInfo.charName = character.charName
+            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+        }
     }
        
 }
