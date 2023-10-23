@@ -19,4 +19,5 @@ struct ManageToDoInfo {
     var isKamenRaidDone: Bool = false
     var isAbyssRaidDone: Bool = false
     var isAbyssDungeonDone: Bool = false
+    var whatAbyssDungeon: String = ""
 }

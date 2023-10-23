@@ -46,34 +46,28 @@ func backButton(isMainViewActive: Binding<Bool>) -> some View {
 //  캐릭터 이미지를 먼저 넘겨서 셀 생성
 //  MARK: 이미지 호출
 func callApiForImage(characterViewModel: CharacterViewModel, tempNewCharacter: Binding<CharacterSetting>, completion: @escaping () -> Void) {
-    //GDC의 DispatchGroup 사용
-    let group = DispatchGroup() // 그룹 생성
     
     guard let encodeName = tempNewCharacter.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
         return
     }
     
-    group.enter() // 그룹 진입
     
     characterViewModel.getCharacterProfiles(characterName: encodeName) { result in
+        var calledImage = tempNewCharacter.wrappedValue
         switch result {
         case .success(let data):
             DispatchQueue.main.async {
                 tempNewCharacter.wrappedValue.charImage = data.CharacterImage ?? ""
                 print("###############")
                 print("Queue에서 \(tempNewCharacter.wrappedValue.charImage)")
-                group.leave() // 완료시 그룹에서 빠져나옴
             }
             
         case .failure(let error):
             // 에러 처리
             print("API Error: \(error)")
-            group.leave() // 완료시 그룹에서 빠져나옴
         }
+        
     }
-    group.wait() // 그룹에 진입한 모든 작업이 완료될 때까지 대기
-    completion() // 모든 작업이 완료되면 이후 작업 수행
-
 }
 
 //  MARK: 캐릭터 생성 완료 버튼
@@ -81,12 +75,8 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharac
     return Button {
         isSettingViewActive.wrappedValue = false
         
-        callApiForImage(characterViewModel: CharacterViewModel(), tempNewCharacter: tempNewCharacter) {
-            
-        }
-        
         let newChar = CharacterSetting(
-            charImage: tempNewCharacter.wrappedValue.charImage,
+            charImage: "photo",
             charName: tempNewCharacter.wrappedValue.charName,
             charClass: tempNewCharacter.wrappedValue.charClass,
             charLevel: tempNewCharacter.wrappedValue.charLevel,
@@ -103,11 +93,10 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharac
             whatAbyssDungeon: tempNewCharacter.wrappedValue.whatAbyssDungeon
         )
         characterList.wrappedValue.append(newChar)
-        
-        let characterViewModel = CharacterViewModel()
         characterViewModel.saveDateForCreateCell(newChar)
         
-        print("SettingView에서 \(newChar)")
+        print("newChar's CharacterImage: \(newChar.charImage)")
+        
         
     } label: {
         Text("캐릭터 생성")

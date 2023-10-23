@@ -20,7 +20,8 @@ class DetailViewViewModel: ObservableObject {
         isValtanRaidDone: false,isViakissRaidDone: false,
         isKoukuRaidDone: false,isAbrelRaidDone: false,
         isIliakanRaidDone: false,isKamenRaidDone: false,
-        isAbyssRaidDone: false,isAbyssDungeonDone: false
+        isAbyssRaidDone: false,isAbyssDungeonDone: false,
+        whatAbyssDungeon: ""
     )
     
     let db = Firestore.firestore()
@@ -39,7 +40,8 @@ class DetailViewViewModel: ObservableObject {
             "iliakanRaid": toDoInfo.isIliakanRaidDone,
             "kamenRaid": toDoInfo.isKamenRaidDone,
             "abyssRaid": toDoInfo.isAbyssRaidDone,
-            "abyssDungeon": toDoInfo.isAbyssDungeonDone
+            "abyssDungeon": toDoInfo.isAbyssDungeonDone,
+            "whatAbyssDungeon": toDoInfo.whatAbyssDungeon
         ]
         
         let charCollection = db.collection("ManageCharacter")
@@ -86,6 +88,22 @@ class DetailViewViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    //  MARK: - CharacterInfoView
+    func characterInfoView(label: String, value: String) -> some View {
+        VStack{
+            Text(label)
+                .font(.system(size: 14))
+            Text(value)
+        }
+        .padding(5)
+        .frame(width: 80,height: 60)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray, lineWidth: 1)
+        )
+        
     }
     
     

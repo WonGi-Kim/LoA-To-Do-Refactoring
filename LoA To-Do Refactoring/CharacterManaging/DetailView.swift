@@ -30,22 +30,11 @@ struct DetailView: View {
                 HStack{
                     VStack {
                         Spacer()
-                        VStack{
-                            Text("닉네임: ")
-                                .font(.system(size: 14))
-                            Text("\(character.charName)")
-                        }
-                        .padding(5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
+                        detailViewModel.characterInfoView(label: "닉네임: ", value: character.charName)
                         Spacer()
-                        Text("클래스: ")
-                        Text("\(character.charClass)")
+                        detailViewModel.characterInfoView(label: "클래스: ", value: character.charClass)
                         Spacer()
-                        Text("아이템 레벨: ")
-                        Text("\(character.charLevel)")
+                        detailViewModel.characterInfoView(label: "아이템 레벨: ", value: character.charLevel)
                         Spacer()
                     }
                     AsyncImage(url: URL(string: character.charImage)!) { phase in
@@ -131,10 +120,77 @@ struct DetailView: View {
                         }
                 }
                 if character.isViakissRaid {
-                    Toggle("가디언 토벌", isOn: $characterToDoInfo.isViakissRaidDone)
+                    Toggle("군단장 비아키스", isOn: $characterToDoInfo.isViakissRaidDone)
                         .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
                         .onTapGesture {
                             characterToDoInfo.isViakissRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                if character.isKoukuRaid {
+                    Toggle("군단장 쿠크세이튼", isOn: $characterToDoInfo.isKoukuRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isKoukuRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                if character.isAbrelRaid {
+                    Toggle("군단장 아브렐슈드", isOn: $characterToDoInfo.isAbrelRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isAbrelRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                if character.isIliakanRaid {
+                    Toggle("군단장 일리아칸", isOn: $characterToDoInfo.isIliakanRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isIliakanRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                if character.isKamenRaid {
+                    Toggle("군단장 카멘", isOn: $characterToDoInfo.isKamenRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isKamenRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                
+                //  어비스 컨텐츠
+                if character.isAbyssDungeon == false && character.isAbyssRaid == false {
+                    VStack {
+                        HStack{
+                            Text("어비스 컨텐츠")
+                                .padding(.leading,10)
+                            Spacer()
+                        }
+                        Text("There is not choiced Abyss Contents..!!")
+                    }
+                } else {
+                    HStack {
+                        Text("어비스 컨텐츠")
+                            .padding(.leading,10)
+                        Spacer()
+                    }
+                }
+                if character.isAbyssRaid {
+                    Toggle("어비스 레이드: 아르고스 ", isOn: $characterToDoInfo.isAbyssRaidDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isAbyssRaidDone.toggle()
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                        }
+                }
+                if character.isAbyssDungeon {
+                    Toggle("어비스 던전:\(character.whatAbyssDungeon) ", isOn: $characterToDoInfo.isAbyssDungeonDone)
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .onTapGesture {
+                            characterToDoInfo.isAbyssDungeonDone.toggle()
+                            characterToDoInfo.whatAbyssDungeon = character.whatAbyssDungeon
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
                         }
                 }
@@ -151,6 +207,13 @@ struct DetailView: View {
             // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
             characterToDoInfo.charName = character.charName
             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+        }
+        .refreshable {
+            characterViewModel.characterForUpdate = character
+            characterViewModel.updateCharacter {
+                character = characterViewModel.characterForUpdate
+            }
+            
         }
     }
        

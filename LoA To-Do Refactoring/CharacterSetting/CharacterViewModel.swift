@@ -33,6 +33,17 @@ class CharacterViewModel: ObservableObject {
         isKamenRaid: false, isAbyssRaid: false,
         isAbyssDungeon: false, whatAbyssDungeon: "")
     
+    //refreshable 에 사용될 캐릭터
+    @Published var characterForUpdate: CharacterSetting = CharacterSetting(
+        charImage:"",
+        charName: "", charClass: "",
+        charLevel: "", isGuardianRaid: false,
+        isChaosDungeon: false, isValtanRaid: false,
+        isViakissRaid: false, isKoukuRaid: false,
+        isAbrelRaid: false, isIliakanRaid: false,
+        isKamenRaid: false, isAbyssRaid: false,
+        isAbyssDungeon: false, whatAbyssDungeon: "")
+    
     //  Picker에 관련된 변수
     @Published var classArray: [String] = []
     @Published var abyssArray: [String] = []
@@ -53,6 +64,7 @@ class CharacterViewModel: ObservableObject {
         let Description: String
     }
     
+    //  MARK: - API 호출
     func getCharacterProfiles(characterName: String, completion: @escaping (Result<CharacterProfiles, Error>) -> Void) {
         let baseURLString = "https://developer-lostark.game.onstove.com/armories/characters/\(characterName)/profiles"
 
@@ -138,6 +150,31 @@ class CharacterViewModel: ObservableObject {
             return nil
         } else {
             return jsonObject
+        }
+    }
+    
+    //  MARK: - characterUpdate
+    func updateCharacter(completion: @escaping() -> Void) {
+        guard let encodeName = characterForUpdate.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
+        }
+        
+        getCharacterProfiles(characterName: encodeName) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.characterForUpdate.charImage = data.CharacterImage ?? ""
+                    self.characterForUpdate.charName = data.CharacterName ?? ""
+                    self.characterForUpdate.charClass = data.CharacterClassName ?? ""
+                    self.characterForUpdate.charLevel = data.ItemAvgLevel ?? ""
+                            
+                    self.saveDateForCreateCell(self.characterForUpdate)
+                    completion() // 완료 콜백 호출
+                }
+            case .failure(let error):
+                // 에러 처리
+                print("API Error: \(error)")
+            }
         }
     }
     

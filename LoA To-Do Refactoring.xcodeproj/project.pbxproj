@@ -712,7 +712,6 @@
 					"\"nanopb\"",
 					"-framework",
 					"\"openssl_grpc\"",
-					"-fprofile-instr-generate",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-Refactoring";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -801,7 +800,6 @@
 					"\"nanopb\"",
 					"-framework",
 					"\"openssl_grpc\"",
-					"-fprofile-instr-generate",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "WonGi.LoA-To-Do-Refactoring";
 				PRODUCT_NAME = "$(TARGET_NAME)";
