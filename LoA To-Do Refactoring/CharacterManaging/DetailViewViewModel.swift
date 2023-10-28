@@ -69,10 +69,10 @@ class DetailViewViewModel: ObservableObject {
         }
     }
     
-    func loadDataFromFireStore() {
+    func loadDataFromFireStore(_ charName : String, completion : @escaping (Result<ManageToDoInfo, Error>) -> Void ) {
         let manageCharacterCollection = db.collection("ManageCharacter")
         
-        let characterID = characterToDoInfo.charName ?? ""
+        let characterID = charName ?? ""
         manageCharacterCollection.document(characterID).getDocument { (snapshot, error) in
             if let error = error {
                 print("Error fetching document: \(error)")
@@ -84,10 +84,38 @@ class DetailViewViewModel: ObservableObject {
             }
             if document.exists {
                 if let data = document.data() {
+                    self.characterToDoInfo.charName = data["charName"] as? String ?? ""
+                    self.characterToDoInfo.isChaosDungeonDone = data["chaosDungeon"] as? Bool ?? false
+                    self.characterToDoInfo.isGuardianRaidDone = data["guardianRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isValtanRaidDone = data["valtanRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isViakissRaidDone = data["viakissRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isKoukuRaidDone = data["koukuRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isAbrelRaidDone = data["abrelRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isIliakanRaidDone = data["iliakanRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isKamenRaidDone = data["kamenRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isAbyssRaidDone = data["abyssRaid"] as? Bool ?? false
+                    self.characterToDoInfo.isAbyssDungeonDone = data["abyssDungeon"] as? Bool ?? false
+                    self.characterToDoInfo.whatAbyssDungeon = data["whatAbyssDungeon"] as? String ?? "--선택안함--"
                     
+                    //  업데이트된 characterToDoInfo 저장
+                    self.saveDataForManageToDoInfo(self.characterToDoInfo)
+                    
+                    print("Document load success!")
+                    print("뷰모델\(self.characterToDoInfo)")
+                    completion(.success(self.characterToDoInfo))
                 }
+            } else {
+                print("Document does not exist")
+                let error = NSError(domain: "Document Not Founded", code: 404, userInfo: nil)
+                completion(.failure(error))
             }
         }
+        
+    }
+    
+    //  MARK: - Init characterToDoInfo
+    func initToDoInfo() {
+        
     }
     
     //  MARK: - CharacterInfoView

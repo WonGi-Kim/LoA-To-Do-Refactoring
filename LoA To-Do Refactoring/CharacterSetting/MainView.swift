@@ -40,6 +40,15 @@ struct MainView: View {
         isAbyssRaid: false, isAbyssDungeon: false,
         whatAbyssDungeon: "")
     
+    @State var characterToDoInfo : ManageToDoInfo = ManageToDoInfo(
+        charName: "",
+        isChaosDungeonDone: false,isGuardianRaidDone: false,
+        isValtanRaidDone: false,isViakissRaidDone: false,
+        isKoukuRaidDone: false,isAbrelRaidDone: false,
+        isIliakanRaidDone: false,isKamenRaidDone: false,
+        isAbyssRaidDone: false,isAbyssDungeonDone: false
+        )
+    
     @State var characterList: [CharacterSetting] = []
     
     //@ObservedObject var detailViewViewModel = DetailViewViewModel()
@@ -51,8 +60,12 @@ struct MainView: View {
         NavigationView {
             List() {
                 ForEach(characterViewModel.characterList.indices, id: \.self) { index in
-                    createCharacterCell(isMainViewActive: $mainViewActive, character: $characterViewModel.characterList[index], isDetailViewActive: $isDetailViewActive,
-                                        selectedCharacter: $selectedCharacter)
+                    createCharacterCell(isMainViewActive: $mainViewActive, 
+                                        character: $characterViewModel.characterList[index],
+                                        isDetailViewActive: $isDetailViewActive,
+                                        selectedCharacter: $selectedCharacter,
+                                        characterToDoInfo: $characterToDoInfo
+                    )
                 }
                 .onDelete(perform: characterViewModel.removeCells)
             }
@@ -77,12 +90,15 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
             .font(.title2)
     }
     .background(
-        NavigationLink("",destination: SettingView(isMainViewActive: isMainViewActive, isSettingViewActive: isSettingViewActive, characterList: characterList),isActive : isSettingViewActive)
+        NavigationLink("",destination: SettingView(
+            isMainViewActive: isMainViewActive,
+            isSettingViewActive: isSettingViewActive,
+            characterList: characterList),isActive : isSettingViewActive)
             .opacity(0)
     )
 }
 
-func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>, selectedCharacter: Binding<CharacterSetting>) -> some View {
+func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>, selectedCharacter: Binding<CharacterSetting>, characterToDoInfo: Binding<ManageToDoInfo>) -> some View {
     HStack {
         Button {
             isDetailViewActive.wrappedValue.toggle()
@@ -103,12 +119,14 @@ func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<Cha
                 
             }
             .background(
-                NavigationLink("", destination: DetailView(isMainViewActive: isMainViewActive, character: selectedCharacter), isActive: isDetailViewActive)
+                NavigationLink("", destination: DetailView(
+                    isMainViewActive: isMainViewActive,
+                    character: selectedCharacter,
+                    characterToDoInfo: characterToDoInfo), isActive: isDetailViewActive)
                 .opacity(0)
             )
         }.buttonStyle(PlainButtonStyle())
         
-        Spacer()
         
         Button {
             callLostarkApi(characterViewModel: CharacterViewModel(), character: character) {

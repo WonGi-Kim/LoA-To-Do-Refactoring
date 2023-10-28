@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct DetailView: View {
-    
     @Binding var isMainViewActive: Bool
     @Binding var character: CharacterSetting
     @ObservedObject var characterViewModel = CharacterViewModel()
     @ObservedObject var detailViewModel = DetailViewViewModel()
     
-    @State var characterToDoInfo : ManageToDoInfo = ManageToDoInfo(
-        charName: "",
-        isChaosDungeonDone: false,isGuardianRaidDone: false,
-        isValtanRaidDone: false,isViakissRaidDone: false,
-        isKoukuRaidDone: false,isAbrelRaidDone: false,
-        isIliakanRaidDone: false,isKamenRaidDone: false,
-        isAbyssRaidDone: false,isAbyssDungeonDone: false
-    )
+    @Binding var characterToDoInfo: ManageToDoInfo
+    
+    //@Environment를 통해서 dismiss변수로 dismiss를 구현
+    
     
     var body: some View {
         ScrollView {
@@ -194,19 +189,31 @@ struct DetailView: View {
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
                         }
                 }
+                
             }
         }
-        
-        
         
         .navigationBarTitle("캐릭터 관리")
         .navigationBarItems(
             leading: backButton(isMainViewActive: $isMainViewActive)
+            //trailing:
         )
         .onAppear {
             // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
             characterToDoInfo.charName = character.charName
-            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+    
+            detailViewModel.loadDataFromFireStore(character.charName) { result in
+                switch result {
+                case .success(let characterToDoInfo):
+                    self.characterToDoInfo = characterToDoInfo
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
+        }
+        .onDisappear {
+            //detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+            characterToDoInfo = detailViewModel.toDoInfo
         }
         .refreshable {
             characterViewModel.characterForUpdate = character
@@ -230,11 +237,19 @@ struct DetailView_Previews: PreviewProvider {
         isAbrelRaid: false, isIliakanRaid: false,
         isKamenRaid: false, isAbyssRaid: false,
         isAbyssDungeon: false, whatAbyssDungeon: "")
+    @State static var characterToDoInfo : ManageToDoInfo = ManageToDoInfo(
+        charName: "",
+        isChaosDungeonDone: true,isGuardianRaidDone: false,
+        isValtanRaidDone: false,isViakissRaidDone: false,
+        isKoukuRaidDone: false,isAbrelRaidDone: false,
+        isIliakanRaidDone: false,isKamenRaidDone: false,
+        isAbyssRaidDone: false,isAbyssDungeonDone: false
+        )
     
     static var previews: some View {
         MainView()
             .sheet(isPresented: $isMainViewActive) {
-                DetailView(isMainViewActive: $isMainViewActive, character: $character)
+                DetailView(isMainViewActive: $isMainViewActive, character: $character, characterToDoInfo: $characterToDoInfo)
             }
     }
 }
