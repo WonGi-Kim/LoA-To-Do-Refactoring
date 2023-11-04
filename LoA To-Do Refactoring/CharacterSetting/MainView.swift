@@ -26,10 +26,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 struct MainView: View {
+    //  뷰의 이동을 위한 변수
     @State var mainViewActive = false
     @State var isSettingViewActive = false
     @State var isDetailViewActive = false
     
+    //  characterViewModel 내부의 characterList[index]를 받아 DetailView에 하나의 캐릭터만 넘기기 위한 변수
     @State var selectedCharacter: CharacterSetting = CharacterSetting(
         charImage: "", charName: "",
         charClass: "", charLevel: "",
@@ -40,6 +42,7 @@ struct MainView: View {
         isAbyssRaid: false, isAbyssDungeon: false,
         whatAbyssDungeon: "")
     
+    //  DetailView로 넘길 ToDoInfo 데이터
     @State var characterToDoInfo : ManageToDoInfo = ManageToDoInfo(
         charName: "",
         isChaosDungeonDone: false,isGuardianRaidDone: false,
@@ -49,10 +52,13 @@ struct MainView: View {
         isAbyssRaidDone: false,isAbyssDungeonDone: false
         )
     
+    //  캐릭터 최초 생성시에 필요한 characterList
     @State var characterList: [CharacterSetting] = []
     
-    //@ObservedObject var detailViewViewModel = DetailViewViewModel()
-    @ObservedObject var characterViewModel = CharacterViewModel()
+    //  EditView에서 넘어오는 데이터를 MainView에서 반영하기 위해서 (Firebase관리 부분에서 addSnapshotListener 추가
+    @StateObject var characterViewModel = CharacterViewModel()
+    
+    //  Api호출을 위한 변수
     @State var encodeName: String = ""
     
 
@@ -67,13 +73,15 @@ struct MainView: View {
                                         characterToDoInfo: $characterToDoInfo
                     )
                 }
-                .onDelete(perform: characterViewModel.removeCells)
+                .onDelete(perform: characterViewModel.removeCells)  //List 삭제
             }
-            .onAppear(){
+            .onAppear(){    // MainView로드 시 characterList의 데이터는 사라지기 때문에 Firebase에서 데이터 로드
                 characterViewModel.loadDataForCreateCell()
             }
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
-            .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, characterList: $characterList,isSettingViewActive:$isSettingViewActive))
+            .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, 
+                                                                   characterList: $characterList,
+                                                                   isSettingViewActive:$isSettingViewActive))
             .refreshable {
                 characterViewModel.loadDataForCreateCell()
             }
@@ -81,6 +89,7 @@ struct MainView: View {
     }
 }
 
+//  MARK: 캐릭터 생성 버튼
 func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>) -> some View {
     Button {
         isSettingViewActive.wrappedValue.toggle()
@@ -98,6 +107,7 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
     )
 }
 
+//  MARK: List에 characterSetting의 값을 가진 Cell생성 및 DetailView로 이동하는 버튼 생성
 func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>, selectedCharacter: Binding<CharacterSetting>, characterToDoInfo: Binding<ManageToDoInfo>) -> some View {
     HStack {
         Button {
@@ -120,7 +130,7 @@ func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<Cha
             }
             .background(
                 NavigationLink("", destination: DetailView(
-                    isMainViewActive: isMainViewActive,
+                    isMainViewActive: isMainViewActive, isDetailViewActive: isDetailViewActive,
                     character: selectedCharacter,
                     characterToDoInfo: characterToDoInfo), isActive: isDetailViewActive)
                 .opacity(0)

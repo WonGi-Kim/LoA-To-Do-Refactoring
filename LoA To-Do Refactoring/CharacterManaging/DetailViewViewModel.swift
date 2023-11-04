@@ -101,7 +101,6 @@ class DetailViewViewModel: ObservableObject {
                     self.saveDataForManageToDoInfo(self.characterToDoInfo)
                     
                     print("Document load success!")
-                    print("뷰모델\(self.characterToDoInfo)")
                     completion(.success(self.characterToDoInfo))
                 }
             } else {
@@ -114,8 +113,34 @@ class DetailViewViewModel: ObservableObject {
     }
     
     //  MARK: - Init characterToDoInfo
-    func initToDoInfo() {
+    func initToDoInfo(character: CharacterSetting) {
+        let characterName = character.charName ?? ""
         
+        let manageCharacterCollection = db.collection("ManageCharacter")
+        let documentRef = manageCharacterCollection.document(characterName)
+        
+        let dataToInit: [String: Any] = [
+            "charName": character.charName ?? "",
+            "chaosDungeon": false,
+            "guardianRaid": false,
+            "valtanRaid": false,
+            "viakissRaid": false,
+            "koukuRaid": false,
+            "abrelRaid": false,
+            "iliakanRaid": false,
+            "kamenRaid": false,
+            "abyssRaid": false,
+            "abyssDungeon": false,
+            "whatAbyssDungeon": character.whatAbyssDungeon ?? ""
+        ]
+        
+        documentRef.updateData(dataToInit) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document updated successfully!")
+            }
+        }
     }
     
     //  MARK: - CharacterInfoView

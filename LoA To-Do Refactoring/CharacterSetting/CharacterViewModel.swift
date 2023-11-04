@@ -23,6 +23,7 @@ class CharacterViewModel: ObservableObject {
     @Published var characterImage: String = ""
     @Published var characterList: [CharacterSetting] = []
     
+    //  캐릭터 최초 생성시 whatAbyssDungeon을 통해 isAbyssDungeon의 값을 설정하기 위해 생성
     @Published var newCharacter: CharacterSetting = CharacterSetting (
         charImage:"",
         charName: "", charClass: "",
@@ -33,7 +34,7 @@ class CharacterViewModel: ObservableObject {
         isKamenRaid: false, isAbyssRaid: false,
         isAbyssDungeon: false, whatAbyssDungeon: "")
     
-    //refreshable 에 사용될 캐릭터
+    //  refreshable 에 사용될 캐릭터
     @Published var characterForUpdate: CharacterSetting = CharacterSetting(
         charImage:"",
         charName: "", charClass: "",
@@ -50,13 +51,12 @@ class CharacterViewModel: ObservableObject {
     @Published var selectedCharacterClass: String = ""
     @Published var selectedAbyssDun: String = ""
     
+    //  골드획득 컨텐츠 눌린 횟수
+    @Published var goldCount: Int = 0
     
     init() { //picker를 바로 사용하기 위해
         loadAbyssDun()
         loadClassNames()
-        //print("loadAbyssDun: ", abyssArray)
-        //print("abyssDunData: ", loadAbyssDun().abyssDunData)
-        //isAbyssDungeonUpdate()
     }
     
     struct ErrorResponse: Codable {
@@ -154,6 +154,7 @@ class CharacterViewModel: ObservableObject {
     }
     
     //  MARK: - characterUpdate
+    //  DetailView에서 캐릭터를 갱신할 때 사용
     func updateCharacter(completion: @escaping() -> Void) {
         guard let encodeName = characterForUpdate.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
@@ -232,16 +233,14 @@ class CharacterViewModel: ObservableObject {
     func loadDataForCreateCell() {
         let cellCollection = db.collection("Cells")
         
-        cellCollection.getDocuments { (querySnapshot, error) in
+        cellCollection.addSnapshotListener { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching documents: \(error)")
-                //completion(nil, error)
                 return
             }
             
             guard let documents = querySnapshot?.documents else {
                 print("No documents found.")
-                //completion([], nil)
                 return
             }
             
@@ -254,10 +253,47 @@ class CharacterViewModel: ObservableObject {
                 }
             }
             
-            // Firestore에서 데이터를 가져온 후에 characterList를 업데이트
-            DispatchQueue.main.async {
-                self.characterList = characterList
-                
+            self.characterList = characterList
+        }
+    }
+    
+    //MARK: 리스트 삭제
+    func removeCells(at offsets: IndexSet) {
+        for index in offsets {
+            let characterToRemove = characterList[index]
+            removeCellsForFirestore(characterToRemove)
+            removeManageCharacterInFireStore(characterToRemove)
+        }
+        
+        characterList.remove(atOffsets: offsets)
+    }
+    
+    func removeCellsForFirestore(_ character: CharacterSetting) {
+        let characterName = character.charName
+        
+        let cellCollection = db.collection("Cells")
+        let documentRef = cellCollection.document(characterName)
+        
+        documentRef.delete { error in
+            if let error = error {
+                print("Error deleting document: \(error)")
+            } else {
+                print("Document in Cells deleted successfully!")
+            }
+        }
+    }
+    
+    func removeManageCharacterInFireStore(_ character: CharacterSetting) {
+        let characterName = character.charName
+        
+        let manageCharacterCollection = db.collection("ManageCharacter")
+        let documentRef = manageCharacterCollection.document(characterName)
+        
+        documentRef.delete { error in
+            if let error = error {
+                print("Error deleting document: \(error)")
+            } else {
+                print("Document in ManageCharacter deleted successfully!")
             }
         }
     }
@@ -275,15 +311,16 @@ class CharacterViewModel: ObservableObject {
                     .frame(width: 35, height: 35)
                     
                 Spacer()
-            }.padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .frame(width: 380 ,height: 60)
-                .onTapGesture {
-                    configuration.isOn.toggle()
-                }
+            }
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray, lineWidth: 1)
+            )
+            .frame(width: 380 ,height: 60)
+            .onTapGesture {
+                configuration.isOn.toggle()
+            }
         }
     }
     
@@ -339,45 +376,6 @@ class CharacterViewModel: ObservableObject {
         }
     }
     
-    //MARK: 리스트 삭제
-    func removeCells(at offsets: IndexSet) {
-        for index in offsets {
-            let characterToRemove = characterList[index]
-            removeCellsForFirestore(characterToRemove)
-            removeManageCharacterInFireStore(characterToRemove)
-        }
-        
-        characterList.remove(atOffsets: offsets)
-    }
     
-    func removeCellsForFirestore(_ character: CharacterSetting) {
-        let characterName = character.charName
-        
-        let cellCollection = db.collection("Cells")
-        let documentRef = cellCollection.document(characterName)
-        
-        documentRef.delete { error in
-            if let error = error {
-                print("Error deleting document: \(error)")
-            } else {
-                print("Document in Cells deleted successfully!")
-            }
-        }
-    }
-    
-    func removeManageCharacterInFireStore(_ character: CharacterSetting) {
-        let characterName = character.charName
-        
-        let manageCharacterCollection = db.collection("ManageCharacter")
-        let documentRef = manageCharacterCollection.document(characterName)
-        
-        documentRef.delete { error in
-            if let error = error {
-                print("Error deleting document: \(error)")
-            } else {
-                print("Document in ManageCharacter deleted successfully!")
-            }
-        }
-    }
     
 }

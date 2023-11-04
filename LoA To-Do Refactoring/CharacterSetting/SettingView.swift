@@ -18,7 +18,8 @@ struct SettingView: View {
         ScrollView{
             VStack{
                 charInfoInputSection(tempNewCharacter: $characterViewModel.newCharacter)
-                charToDoListSelection(tempNewCharacter: $characterViewModel.newCharacter, characterViewModel: characterViewModel)
+                charToDoListSelection(tempNewCharacter: $characterViewModel.newCharacter, 
+                                      characterViewModel: characterViewModel)
                 Spacer()
             }
             
@@ -26,7 +27,11 @@ struct SettingView: View {
             .navigationBarTitle("캐릭터 생성")
             .navigationBarItems(
                 leading: backButton(isMainViewActive: $isMainViewActive),
-                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, tempNewCharacter: $characterViewModel.newCharacter, characterList: $characterList, isSettingViewActive: $isSettingViewActive, characterViewModel: characterViewModel)
+                trailing: confirmCharacterCreateButton(isMainViewActive: $isMainViewActive, 
+                                                       tempNewCharacter: $characterViewModel.newCharacter,
+                                                       characterList: $characterList,
+                                                       isSettingViewActive: $isSettingViewActive,
+                                                       characterViewModel: characterViewModel)
             )
         }
     }
@@ -43,8 +48,11 @@ func backButton(isMainViewActive: Binding<Bool>) -> some View {
 
     }
 }
-//  캐릭터 이미지를 먼저 넘겨서 셀 생성
+
+/**
+//  Completion 처리해도 비동기 함수이기 때문에 작업이 느려짐 + 오류로 인해 앱 멈출 위험이 있기 때문에 미사용
 //  MARK: 이미지 호출
+//  캐릭터 이미지를 먼저 넘겨서 셀 생성
 func callApiForImage(characterViewModel: CharacterViewModel, tempNewCharacter: Binding<CharacterSetting>, completion: @escaping () -> Void) {
     
     guard let encodeName = tempNewCharacter.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -58,8 +66,6 @@ func callApiForImage(characterViewModel: CharacterViewModel, tempNewCharacter: B
         case .success(let data):
             DispatchQueue.main.async {
                 tempNewCharacter.wrappedValue.charImage = data.CharacterImage ?? ""
-                print("###############")
-                print("Queue에서 \(tempNewCharacter.wrappedValue.charImage)")
             }
             
         case .failure(let error):
@@ -69,10 +75,12 @@ func callApiForImage(characterViewModel: CharacterViewModel, tempNewCharacter: B
         
     }
 }
+*/
 
-//  MARK: 캐릭터 생성 완료 버튼
+//  MARK: - 캐릭터 생성 완료 버튼
 func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>, characterViewModel: CharacterViewModel) -> some View {
     return Button {
+        
         isSettingViewActive.wrappedValue = false
         
         let newChar = CharacterSetting(
@@ -92,17 +100,23 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharac
             isAbyssDungeon: tempNewCharacter.wrappedValue.isAbyssDungeon,
             whatAbyssDungeon: tempNewCharacter.wrappedValue.whatAbyssDungeon
         )
+        //  여기서 characterList는 MainView로 부터 Binding된 변수이기 때문에
+        //  최초 생성시에 characterList에 넘겨줘야 셀 생성 가능
         characterList.wrappedValue.append(newChar)
+        
+        //  최초 생성을 제외한 경우 FireStore에서 Cell데이터를 가져오기 때문에
+        //  FireStore에도 같이 저장
         characterViewModel.saveDateForCreateCell(newChar)
-        
-        print("newChar's CharacterImage: \(newChar.charImage)")
-        
         
     } label: {
         Text("캐릭터 생성")
             .foregroundColor(.blue)
             .font(.system(size: 17))
     }
+    
+    //  필수적인 이름, 레벨, 직업을 입력받아야만 버튼 작동
+    .disabled(tempNewCharacter.wrappedValue.charName.isEmpty || tempNewCharacter.wrappedValue.charClass.isEmpty || tempNewCharacter.wrappedValue.charLevel.isEmpty)
+    .opacity(tempNewCharacter.wrappedValue.charName.isEmpty || tempNewCharacter.wrappedValue.charClass.isEmpty || tempNewCharacter.wrappedValue.charLevel.isEmpty ? 0.3 : 1.0)
 }
 
 //  MARK: 캐릭터 기본정보 입력(이름, 레벨, 클래스)

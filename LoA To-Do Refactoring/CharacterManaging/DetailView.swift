@@ -9,14 +9,14 @@ import SwiftUI
 
 struct DetailView: View {
     @Binding var isMainViewActive: Bool
-    @Binding var character: CharacterSetting
+    @Binding var isDetailViewActive: Bool
+    @Binding var character: CharacterSetting    //  MainView에서 넘어온 selectedCharacter
     @ObservedObject var characterViewModel = CharacterViewModel()
     @ObservedObject var detailViewModel = DetailViewViewModel()
     
     @Binding var characterToDoInfo: ManageToDoInfo
     
-    //@Environment를 통해서 dismiss변수로 dismiss를 구현
-    
+    @State var isEditViewActive: Bool = false
     
     var body: some View {
         ScrollView {
@@ -32,27 +32,11 @@ struct DetailView: View {
                         detailViewModel.characterInfoView(label: "아이템 레벨: ", value: character.charLevel)
                         Spacer()
                     }
-                    AsyncImage(url: URL(string: character.charImage)!) { phase in
-                        switch phase {
-                        case .empty:
-                            // 이미지가 로드되지 않은 경우, 로딩 중 뷰 표시
-                            ProgressView()
-                        case .success(let image):
-                            // 이미지가 로드되면 표시
-                            image
-                                .resizable()
-                                .frame(width: 300, height: 400, alignment: .trailing)
-                        case .failure:
-                            // 이미지 로드 실패 시 에러 이미지 또는 기본 이미지 표시
-                            Image(systemName: "photo")
-                        @unknown default:
-                            // 기본 이미지 표시
-                            Image(systemName: "photo")
-                        }
-                    }
+                    characterInfoSection(character: $character)
                     
                 }.padding(.bottom,20)
-                
+                Divider()
+                    .frame(minHeight: 3)
                 // 일일 컨텐츠
                 if character.isChaosDungeon == false && character.isGuardianRaid == false {
                     VStack {
@@ -76,7 +60,6 @@ struct DetailView: View {
                         .onTapGesture {
                             characterToDoInfo.isChaosDungeonDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
-                            print(characterToDoInfo.isChaosDungeonDone)
                         }
                 }
                 if character.isGuardianRaid {
@@ -87,7 +70,8 @@ struct DetailView: View {
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
                         }
                 }
-                
+                Divider()
+                    .frame(minHeight: 3)
                 // 군단장 레이드
                 if character.isValtanRaid == false && character.isViakissRaid == false && character.isKoukuRaid == false &&
                     character.isAbrelRaid == false && character.isIliakanRaid == false && character.isKamenRaid == false {
@@ -98,6 +82,7 @@ struct DetailView: View {
                             Spacer()
                         }
                         Text("There is not choiced Commender Raid Contents..!!")
+                        
                     }
                 } else {
                     HStack {
@@ -154,7 +139,8 @@ struct DetailView: View {
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
                         }
                 }
-                
+                Divider()
+                    .frame(height: 3)
                 //  어비스 컨텐츠
                 if character.isAbyssDungeon == false && character.isAbyssRaid == false {
                     VStack {
@@ -195,8 +181,10 @@ struct DetailView: View {
         
         .navigationBarTitle("캐릭터 관리")
         .navigationBarItems(
-            leading: backButton(isMainViewActive: $isMainViewActive)
-            //trailing:
+            leading: backButton(isMainViewActive: $isMainViewActive),
+            trailing: goEditMode(isDetailViewActive: $isDetailViewActive, 
+                                 isEditViewActive: $isEditViewActive,
+                                 character: $character)
         )
         .onAppear {
             // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
@@ -212,8 +200,12 @@ struct DetailView: View {
             }
         }
         .onDisappear {
-            //detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+            //  characterToDoInfo를 초기화 하는 과정
+            //  하지않을경우 이전 캐릭터의 데이터가 남아있음
             characterToDoInfo = detailViewModel.toDoInfo
+            
+            //  MainView의 character와 EditView에서 넘어온 character를 동기화
+            characterViewModel.saveDateForCreateCell(character)
         }
         .refreshable {
             characterViewModel.characterForUpdate = character
@@ -226,8 +218,46 @@ struct DetailView: View {
        
 }
 
+func characterInfoSection(character: Binding<CharacterSetting>) -> some View {
+    AsyncImage(url: URL(string: character.charImage.wrappedValue)!) { phase in
+        switch phase {
+        case .empty:
+            // 이미지가 로드되지 않은 경우, 로딩 중 뷰 표시
+            ProgressView()
+        case .success(let image):
+            // 이미지가 로드되면 표시
+            image
+                .resizable()
+                .frame(width: 300, height: 400, alignment: .trailing)
+        case .failure:
+            // 이미지 로드 실패 시 에러 이미지 또는 기본 이미지 표시
+            Image(systemName: "photo")
+        @unknown default:
+            // 기본 이미지 표시
+            Image(systemName: "photo")
+        }
+    }
+}
+
+func goEditMode(isDetailViewActive: Binding<Bool>, isEditViewActive: Binding<Bool>, character: Binding<CharacterSetting>) -> some View{
+    Button {
+        isEditViewActive.wrappedValue.toggle()
+    } label: {
+        Text("캐릭터 수정")
+            .foregroundColor(.blue)
+            .font(.system(size: 17))
+    }
+    .background(
+        NavigationLink("",destination: EditView(
+            isDetailViewActive: isDetailViewActive,
+            isEditViewActive: isEditViewActive,
+            character: character),isActive: isEditViewActive)
+    )
+}
+
 struct DetailView_Previews: PreviewProvider {
     @State static var isMainViewActive = false
+    @State static var isDetailViewActive = false
     @State static var character: CharacterSetting = CharacterSetting(
         charImage: "",
         charName: "", charClass: "",
@@ -249,7 +279,7 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
             .sheet(isPresented: $isMainViewActive) {
-                DetailView(isMainViewActive: $isMainViewActive, character: $character, characterToDoInfo: $characterToDoInfo)
+                DetailView(isMainViewActive: $isMainViewActive, isDetailViewActive: $isDetailViewActive, character: $character, characterToDoInfo: $characterToDoInfo)
             }
     }
 }
