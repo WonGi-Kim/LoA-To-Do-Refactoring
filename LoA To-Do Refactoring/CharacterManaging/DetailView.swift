@@ -92,7 +92,7 @@ struct DetailView: View {
                     }
                 }
                 if character.isValtanRaid {
-                    Toggle("군단장 발탄 ", isOn: $characterToDoInfo.isValtanRaidDone)
+                    Toggle("군단장 발탄", isOn: $characterToDoInfo.isValtanRaidDone)
                         .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
                         .onTapGesture {
                             characterToDoInfo.isValtanRaidDone.toggle()

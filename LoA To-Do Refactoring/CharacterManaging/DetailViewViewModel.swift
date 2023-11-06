@@ -179,7 +179,7 @@ class DetailViewViewModel: ObservableObject {
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color.gray, lineWidth: 1)
-                    .background(Color.gray.opacity(configuration.isOn ? 0.2 : 0.9))
+                    //.background(Color.gray.opacity(configuration.isOn ? 0.2 : 0.9))
             )
             .frame(width:400 ,height: 60)
                 
