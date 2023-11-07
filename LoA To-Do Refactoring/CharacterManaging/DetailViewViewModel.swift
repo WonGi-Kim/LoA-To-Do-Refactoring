@@ -156,34 +156,99 @@ class DetailViewViewModel: ObservableObject {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.gray, lineWidth: 1)
         )
+    }
+    //MARK: - Contents Toggle
+    struct ContentsToggleStyle: ToggleStyle {
         
+        let onImage: Image
+        let offImage: Image
+        let result: String
+        
+        init(onImage: Image, offImage: Image, result: String) {
+            self.onImage = onImage
+            self.offImage = offImage
+            self.result = result
+        }
+        
+        func makeBody(configuration: Configuration) -> some View {
+            
+            onImage
+                .resizable()
+                .scaledToFill()
+                .opacity(configuration.isOn ? 0.4 : 1)
+                .frame(height: 60)
+                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .background(
+                    Text(result)
+                )
+        }
     }
     
-    
-    //MARK: - Contents Toggle
-    
-    struct ContentsToggleStyle: ToggleStyle {
+    struct RaidToggleStyle: ToggleStyle {
+        
+        let onImage: Image
+        let offImage: Image
+        
+        init(onImage: Image, offImage: Image) {
+            self.onImage = onImage
+            self.offImage = offImage
+        }
+        
+        @State var isTextVisible = false
+        
         func makeBody(configuration: Configuration) -> some View {
+            
+            onImage
+                .resizable()
+                .scaledToFill()
+                .opacity(configuration.isOn ? 0.4 : 1)
+                .frame(height: 160)
+                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .background(
+                    Text("토벌 완료")
+                )
+        }
+    }
+}
+
+
+/**
+ // 이제 안씀
+struct TestContentsToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        
+        GeometryReader { geometry in
             HStack {
                 Spacer()
                 configuration.label
                     .font(.title2)
                     .opacity(configuration.isOn ? 0.2 : 1)
+                    .fixedSize()
                 Spacer()
                 Text(configuration.isOn ? "완료" : "미완")
                     .font(.title2)
                     .opacity(configuration.isOn ? 0.2 : 1)
+                    .fixedSize()
                 Spacer()
             }
-            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.gray, lineWidth: 1)
-                    //.background(Color.gray.opacity(configuration.isOn ? 0.2 : 0.9))
+            .frame(
+                width: geometry.size.width,
+                height: geometry.size.height
             )
-            .frame(width:400 ,height: 60)
-                
         }
+        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray, lineWidth: 1)
+        )
     }
-    
 }
+*/

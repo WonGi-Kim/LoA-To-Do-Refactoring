@@ -56,7 +56,9 @@ struct DetailView: View {
                 }
                 if character.isChaosDungeon {
                     Toggle("카오스 던전", isOn: $characterToDoInfo.isChaosDungeonDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle(
+                            onImage: Image("카오스 던전"), offImage: Image("카오스 던전"), result: "클리어"
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isChaosDungeonDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -64,7 +66,9 @@ struct DetailView: View {
                 }
                 if character.isGuardianRaid {
                     Toggle("가디언 토벌", isOn: $characterToDoInfo.isGuardianRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle(
+                            onImage: Image("가디언 토벌"), offImage: Image("가디언 토벌"), result: "토벌 완료"
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isGuardianRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -93,7 +97,9 @@ struct DetailView: View {
                 }
                 if character.isValtanRaid {
                     Toggle("군단장 발탄", isOn: $characterToDoInfo.isValtanRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.RaidToggleStyle(
+                            onImage: Image("군단장 발탄"), offImage: Image("군단장 발탄")
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isValtanRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -101,7 +107,9 @@ struct DetailView: View {
                 }
                 if character.isViakissRaid {
                     Toggle("군단장 비아키스", isOn: $characterToDoInfo.isViakissRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.RaidToggleStyle(
+                            onImage: Image("군단장 비아키스"), offImage: Image("군단장 비아키스")
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isViakissRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -109,7 +117,9 @@ struct DetailView: View {
                 }
                 if character.isKoukuRaid {
                     Toggle("군단장 쿠크세이튼", isOn: $characterToDoInfo.isKoukuRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.RaidToggleStyle(
+                            onImage: Image("군단장 쿠크세이튼"), offImage: Image("군단장 쿠크세이튼")
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isKoukuRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -117,7 +127,9 @@ struct DetailView: View {
                 }
                 if character.isAbrelRaid {
                     Toggle("군단장 아브렐슈드", isOn: $characterToDoInfo.isAbrelRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.RaidToggleStyle(
+                            onImage: Image("군단장 아브렐슈드"), offImage: Image("군단장 아브렐슈드")
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isAbrelRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -125,7 +137,9 @@ struct DetailView: View {
                 }
                 if character.isIliakanRaid {
                     Toggle("군단장 일리아칸", isOn: $characterToDoInfo.isIliakanRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.RaidToggleStyle(
+                            onImage: Image("군단장 일리아칸"), offImage: Image("군단장 일리아칸")
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isIliakanRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -133,7 +147,9 @@ struct DetailView: View {
                 }
                 if character.isKamenRaid {
                     Toggle("군단장 카멘", isOn: $characterToDoInfo.isKamenRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.RaidToggleStyle(
+                            onImage: Image("군단장 카멘"), offImage: Image("군단장 카멘")
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isKamenRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -160,7 +176,9 @@ struct DetailView: View {
                 }
                 if character.isAbyssRaid {
                     Toggle("어비스 레이드: 아르고스 ", isOn: $characterToDoInfo.isAbyssRaidDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle(
+                            onImage: Image("어비스 레이드"), offImage: Image("어비스 레이드"), result: "토벌 완료"
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isAbyssRaidDone.toggle()
                             detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
@@ -168,7 +186,9 @@ struct DetailView: View {
                 }
                 if character.isAbyssDungeon {
                     Toggle("어비스 던전:\(character.whatAbyssDungeon) ", isOn: $characterToDoInfo.isAbyssDungeonDone)
-                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle())
+                        .toggleStyle(DetailViewViewModel.ContentsToggleStyle(
+                            onImage: Image("어비스 던전"), offImage: Image("어비스 던전"), result: "\(character.whatAbyssDungeon) 클리어"
+                        ))
                         .onTapGesture {
                             characterToDoInfo.isAbyssDungeonDone.toggle()
                             characterToDoInfo.whatAbyssDungeon = character.whatAbyssDungeon
