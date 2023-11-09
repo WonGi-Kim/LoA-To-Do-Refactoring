@@ -176,6 +176,9 @@ func charToDoListSelection(tempNewCharacter: Binding<CharacterSetting>, characte
                 .padding(.top,10)
             Spacer()
         }.padding(.leading,20)
+        
+        Divider()
+        
         Toggle("가디언 토벌", isOn: tempNewCharacter.isGuardianRaid)
             .toggleStyle(CharacterViewModel.DailyToggleStyle())
         Toggle("카오스 던전", isOn: tempNewCharacter.isChaosDungeon)
@@ -186,6 +189,8 @@ func charToDoListSelection(tempNewCharacter: Binding<CharacterSetting>, characte
             Spacer()
         }.padding(.leading,20)
             .padding(.top, 10)
+        
+        Divider()
         
         HStack {
             Toggle("발탄", isOn: tempNewCharacter.isValtanRaid)
@@ -211,6 +216,8 @@ func charToDoListSelection(tempNewCharacter: Binding<CharacterSetting>, characte
             Spacer()
         }.padding(.leading,20)
             .padding(.top, 10)
+        
+        Divider()
         
         Toggle("어비스 레이드: 아르고스", isOn: tempNewCharacter.isAbyssRaid)
             .toggleStyle(CharacterViewModel.DailyToggleStyle())

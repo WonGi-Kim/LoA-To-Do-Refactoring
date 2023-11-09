@@ -301,23 +301,24 @@ class CharacterViewModel: ObservableObject {
     //MARK: - Toggle 스타일
     struct DailyToggleStyle: ToggleStyle {
         func makeBody(configuration: Configuration) -> some View {
-            HStack {
-                Spacer()
-                configuration.label
-                    .font(.title2)
-                Spacer()
-                Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
-                    .resizable()
-                    .frame(width: 35, height: 35)
-                    
-                Spacer()
+            GeometryReader { geometry in
+                HStack {
+                    Spacer()
+                    configuration.label
+                        .font(.title2)
+                    Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                    Spacer()
+                }
+                .frame(width: geometry.size.width)
             }
-            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            .frame(height: 40)
+            .padding(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color.gray, lineWidth: 1)
             )
-            .frame(width: 380 ,height: 60)
             .onTapGesture {
                 configuration.isOn.toggle()
             }
@@ -326,25 +327,28 @@ class CharacterViewModel: ObservableObject {
     
     struct CommanderToggleStyle: ToggleStyle {
         func makeBody(configuration: Configuration) -> some View {
-            HStack {
-                Spacer()
-                configuration.label
-                    .font(.title2)
-                Spacer()
-                Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
-                    .resizable()
-                    .frame(width: 30, height: 30)
-                    
-            }
-            .frame(width: 180, height: 40)
-            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .onTapGesture {
-                    configuration.isOn.toggle()
+            GeometryReader { geometry in
+                HStack {
+                    Spacer()
+                    configuration.label
+                        .font(.title2)
+                        .fixedSize()
+                    Image(systemName: configuration.isOn ? "checkmark.square.fill" : "checkmark.square")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                    Spacer()
                 }
+                .frame(width: (geometry.size.width))
+            }
+            .frame(height: 30)
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray, lineWidth: 1)
+            )
+            .onTapGesture {
+                configuration.isOn.toggle()
+            }
         }
     }
     
