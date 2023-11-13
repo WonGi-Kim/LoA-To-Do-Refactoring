@@ -49,33 +49,6 @@ func backButton(isMainViewActive: Binding<Bool>) -> some View {
     }
 }
 
-/**
-//  Completion 처리해도 비동기 함수이기 때문에 작업이 느려짐 + 오류로 인해 앱 멈출 위험이 있기 때문에 미사용
-//  MARK: 이미지 호출
-//  캐릭터 이미지를 먼저 넘겨서 셀 생성
-func callApiForImage(characterViewModel: CharacterViewModel, tempNewCharacter: Binding<CharacterSetting>, completion: @escaping () -> Void) {
-    
-    guard let encodeName = tempNewCharacter.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-        return
-    }
-    
-    
-    characterViewModel.getCharacterProfiles(characterName: encodeName) { result in
-        var calledImage = tempNewCharacter.wrappedValue
-        switch result {
-        case .success(let data):
-            DispatchQueue.main.async {
-                tempNewCharacter.wrappedValue.charImage = data.CharacterImage ?? ""
-            }
-            
-        case .failure(let error):
-            // 에러 처리
-            print("API Error: \(error)")
-        }
-        
-    }
-}
-*/
 
 //  MARK: - 캐릭터 생성 완료 버튼
 func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>, characterViewModel: CharacterViewModel) -> some View {
