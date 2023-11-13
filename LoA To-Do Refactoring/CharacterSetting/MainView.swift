@@ -5,12 +5,6 @@
 //  Created by 김원기 on 2023/09/16.
 //
 
-
-//  MainView에서 firestore에 데이터 적용
-//  Api사용후 데이터 갱신을 사용하기 위해
-//  DetailView에서는 Done값을 새로 작성하여 Bool값을 조정하는 부분 작성
-//  수정화면에서는
-
 // MainView.swift
 
 import SwiftUI
@@ -103,7 +97,6 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
             isMainViewActive: isMainViewActive,
             isSettingViewActive: isSettingViewActive,
             characterList: characterList),isActive : isSettingViewActive)
-            .opacity(0)
     )
 }
 
@@ -133,7 +126,6 @@ func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<Cha
                     isMainViewActive: isMainViewActive, isDetailViewActive: isDetailViewActive,
                     character: selectedCharacter,
                     characterToDoInfo: characterToDoInfo), isActive: isDetailViewActive)
-                .opacity(0)
             )
         }.buttonStyle(PlainButtonStyle())
         
