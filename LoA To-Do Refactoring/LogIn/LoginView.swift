@@ -13,7 +13,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct LoginView: View {
-    @ObservedObject var loginViewModel = LoginViewModel()
+    @StateObject var loginViewModel = LoginViewModel()
     @State private var email = ""
     @State private var password = ""
     @State var isShownSheet: Bool = false
@@ -29,7 +29,7 @@ struct LoginView: View {
             
             SecureField("Password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            
+                
             Button("로그인") {
                 signInFirebase()
             }
@@ -47,10 +47,15 @@ struct LoginView: View {
                 scheme: .light,
                 style: .wide,
                 action: {
-                    //signInWithGoogle()
+                    DispatchQueue.main.async {
+                        loginViewModel.signInWithGoogle()
+                    }
                 }
             )
             .frame(width: 300, height: 60, alignment: .center)
+            .fullScreenCover(isPresented: $loginViewModel.isShowFullScreenCover) {
+                MainView()
+            }
             
             Spacer()
             Button("이메일 회원가입") {
@@ -82,10 +87,6 @@ struct LoginView: View {
                 
             }
         }
-    }
-    
-    private func signInWithGoogle() {
-        
     }
 
 }

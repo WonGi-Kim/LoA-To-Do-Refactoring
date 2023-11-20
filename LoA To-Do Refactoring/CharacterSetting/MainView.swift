@@ -56,19 +56,22 @@ struct MainView: View {
 
     var body: some View {
         NavigationView {
-            List() {
-                ForEach(characterViewModel.characterList.indices, id: \.self) { index in
-                    createCharacterCell(isMainViewActive: $mainViewActive, 
-                                        character: $characterViewModel.characterList[index],
-                                        isDetailViewActive: $isDetailViewActive,
-                                        selectedCharacter: $selectedCharacter,
-                                        characterToDoInfo: $characterToDoInfo,
-                                        uid: $uid
-                    )
+            VStack {
+                List() {
+                    ForEach(characterViewModel.characterList.indices, id: \.self) { index in
+                        createCharacterCell(isMainViewActive: $mainViewActive, 
+                                            character: $characterViewModel.characterList[index],
+                                            isDetailViewActive: $isDetailViewActive,
+                                            selectedCharacter: $selectedCharacter,
+                                            characterToDoInfo: $characterToDoInfo,
+                                            uid: $uid
+                        )
+                    }
+                    .onDelete {
+                        characterViewModel.removeCells(at: $0)
+                    }  //List 삭제
                 }
-                .onDelete {
-                    characterViewModel.removeCells(at: $0)
-                }  //List 삭제
+                Text("MainView에 있는 UID: \(uid)")
             }
             .onAppear(){    // MainView로드 시 characterList의 데이터는 사라지기 때문에 Firebase에서 데이터 로드
                 DispatchQueue.main.async {

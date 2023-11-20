@@ -15,6 +15,7 @@
 		B219BC382ACFDEA7008123E4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC372ACFDEA7008123E4 /* DetailView.swift */; };
 		B219BC3A2AD7BA2E008123E4 /* DetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC392AD7BA2E008123E4 /* DetailViewViewModel.swift */; };
 		B219BC3E2AD7BC2D008123E4 /* ManageToDoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B219BC3D2AD7BC2D008123E4 /* ManageToDoInfo.swift */; };
+		B2602DCD2B0B39FF00A3A255 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2602DCC2B0B39FF00A3A255 /* Application.swift */; };
 		B265458F2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */; };
 		B26545932AB57A5B009D69F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545922AB57A5B009D69F0 /* Assets.xcassets */; };
 		B26545962AB57A5B009D69F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B26545952AB57A5B009D69F0 /* Preview Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		B219BC372ACFDEA7008123E4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		B219BC392AD7BA2E008123E4 /* DetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewViewModel.swift; sourceTree = "<group>"; };
 		B219BC3D2AD7BC2D008123E4 /* ManageToDoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageToDoInfo.swift; sourceTree = "<group>"; };
+		B2602DCC2B0B39FF00A3A255 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Application.swift; path = ../../../../../Downloads/Application.swift; sourceTree = "<group>"; };
 		B265458B2AB57A59009D69F0 /* LoA To-Do Refactoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoA To-Do Refactoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B265458E2AB57A59009D69F0 /* LoA_To_Do_RefactoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoA_To_Do_RefactoringApp.swift; sourceTree = "<group>"; };
 		B26545922AB57A5B009D69F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				B2B660882B05E12500704F4B /* LoginView.swift */,
 				B2B6608D2B05F1B600704F4B /* LoginViewModel.swift */,
 				B2B6608F2B05F24800704F4B /* SignUpView.swift */,
+				B2602DCC2B0B39FF00A3A255 /* Application.swift */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2602DCD2B0B39FF00A3A255 /* Application.swift in Sources */,
 				B26545982AB57A5B009D69F0 /* Persistence.swift in Sources */,
 				B2B660902B05F24800704F4B /* SignUpView.swift in Sources */,
 				B219BC382ACFDEA7008123E4 /* DetailView.swift in Sources */,
@@ -665,6 +669,7 @@
 				DEVELOPMENT_TEAM = FH49FN5F9A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "LoA-To-Do-Refactoring-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -753,6 +758,7 @@
 				DEVELOPMENT_TEAM = FH49FN5F9A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "LoA-To-Do-Refactoring-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
