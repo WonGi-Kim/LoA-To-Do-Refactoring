@@ -11,6 +11,7 @@ struct EditView: View { //  SettingView 재활용
     @Binding var isDetailViewActive: Bool
     @Binding var isEditViewActive: Bool
     @Binding var character: CharacterSetting
+    @Binding var uid: String
     
     @ObservedObject var characterViewModel = CharacterViewModel()
     @ObservedObject var detailViewModel = DetailViewViewModel()
@@ -28,7 +29,7 @@ struct EditView: View { //  SettingView 재활용
             leading: backButtonToDetailView(isDetailViewActive: $isDetailViewActive)
         )
         .onDisappear() {
-            detailViewModel.initToDoInfo(character: character)
+            detailViewModel.initToDoInfo(character: character, uid: uid)
         }
     }
     

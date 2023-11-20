@@ -24,9 +24,11 @@ class DetailViewViewModel: ObservableObject {
         whatAbyssDungeon: ""
     )
     
+    @Published var uid: String = ""
+    
     let db = Firestore.firestore()
     
-    func saveDataForManageToDoInfo(_ toDoInfo : ManageToDoInfo) {
+    func saveDataForManageToDoInfo(_ toDoInfo : ManageToDoInfo, uid: String) {
         let charName = toDoInfo.charName
         
         let dataToUpdateAndSave: [String: Any] = [
@@ -44,7 +46,7 @@ class DetailViewViewModel: ObservableObject {
             "whatAbyssDungeon": toDoInfo.whatAbyssDungeon
         ]
         
-        let charCollection = db.collection("ManageCharacter")
+        let charCollection = db.collection("UID").document(uid).collection("ManageCharacter")
         let documentRef = charCollection.document(charName)
         
         documentRef.getDocument{ (document, error) in
@@ -69,8 +71,8 @@ class DetailViewViewModel: ObservableObject {
         }
     }
     
-    func loadDataFromFireStore(_ charName : String, completion : @escaping (Result<ManageToDoInfo, Error>) -> Void ) {
-        let manageCharacterCollection = db.collection("ManageCharacter")
+    func loadDataFromFireStore(_ charName : String, uid: String, completion : @escaping (Result<ManageToDoInfo, Error>) -> Void ) {
+        let manageCharacterCollection = db.collection("UID").document(uid).collection("ManageCharacter")
         
         let characterID = charName ?? ""
         manageCharacterCollection.document(characterID).getDocument { (snapshot, error) in
@@ -98,7 +100,7 @@ class DetailViewViewModel: ObservableObject {
                     self.characterToDoInfo.whatAbyssDungeon = data["whatAbyssDungeon"] as? String ?? "--선택안함--"
                     
                     //  업데이트된 characterToDoInfo 저장
-                    self.saveDataForManageToDoInfo(self.characterToDoInfo)
+                    self.saveDataForManageToDoInfo(self.characterToDoInfo, uid: uid)
                     
                     print("Document load success!")
                     completion(.success(self.characterToDoInfo))
@@ -109,15 +111,14 @@ class DetailViewViewModel: ObservableObject {
                 completion(.failure(error))
             }
         }
-        
     }
     
     //  MARK: - Init characterToDoInfo
-    func initToDoInfo(character: CharacterSetting) {
-        let characterName = character.charName ?? ""
+    func initToDoInfo(character: CharacterSetting, uid: String) {
+        let charName = character.charName ?? ""
         
-        let manageCharacterCollection = db.collection("ManageCharacter")
-        let documentRef = manageCharacterCollection.document(characterName)
+        let manageCharacterCollection = db.collection("UID").document(uid).collection("ManageCharacter")
+        let documentRef = manageCharacterCollection.document(charName)
         
         let dataToInit: [String: Any] = [
             "charName": character.charName ?? "",

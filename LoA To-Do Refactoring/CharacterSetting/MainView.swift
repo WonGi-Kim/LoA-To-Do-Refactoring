@@ -12,12 +12,6 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure() // Firebase 초기화 코드
-        return true
-    }
-}
 
 struct MainView: View {
     //  뷰의 이동을 위한 변수
@@ -55,6 +49,10 @@ struct MainView: View {
     //  Api호출을 위한 변수
     @State var encodeName: String = ""
     
+    //  LoginView 에서 로그인 한 User의 UID를 가져오기 위해
+    @ObservedObject var loginViewModel = LoginViewModel()
+    @State var uid: String = ""
+    
 
     var body: some View {
         NavigationView {
@@ -64,27 +62,38 @@ struct MainView: View {
                                         character: $characterViewModel.characterList[index],
                                         isDetailViewActive: $isDetailViewActive,
                                         selectedCharacter: $selectedCharacter,
-                                        characterToDoInfo: $characterToDoInfo
+                                        characterToDoInfo: $characterToDoInfo,
+                                        uid: $uid
                     )
                 }
-                .onDelete(perform: characterViewModel.removeCells)  //List 삭제
+                .onDelete {
+                    characterViewModel.removeCells(at: $0)
+                }  //List 삭제
             }
             .onAppear(){    // MainView로드 시 characterList의 데이터는 사라지기 때문에 Firebase에서 데이터 로드
-                characterViewModel.loadDataForCreateCell()
+                DispatchQueue.main.async {
+                    loginViewModel.fetchUID()
+                    self.uid = loginViewModel.uid
+                    print("MainView에서 uid: \(self.uid)")
+                    characterViewModel.uid = uid
+                    characterViewModel.loadDataForCreateCell(uid: uid)
+                }
+                
             }
             .navigationBarTitle("LoA To-Do Refact",displayMode: .inline)
             .navigationBarItems(trailing: createNewCharacterButton(isMainViewActive: $mainViewActive, 
                                                                    characterList: $characterList,
-                                                                   isSettingViewActive:$isSettingViewActive))
+                                                                   isSettingViewActive:$isSettingViewActive,
+                                                                   uid: $uid))
             .refreshable {
-                characterViewModel.loadDataForCreateCell()
+                characterViewModel.loadDataForCreateCell(uid: uid)
             }
         }
     }
 }
 
 //  MARK: 캐릭터 생성 버튼
-func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>) -> some View {
+func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>, uid: Binding<String>) -> some View {
     Button {
         isSettingViewActive.wrappedValue.toggle()
     } label: {
@@ -96,12 +105,13 @@ func createNewCharacterButton(isMainViewActive: Binding<Bool>, characterList: Bi
         NavigationLink("",destination: SettingView(
             isMainViewActive: isMainViewActive,
             isSettingViewActive: isSettingViewActive,
-            characterList: characterList),isActive : isSettingViewActive)
+            characterList: characterList,
+            uid: uid),isActive : isSettingViewActive)
     )
 }
 
 //  MARK: List에 characterSetting의 값을 가진 Cell생성 및 DetailView로 이동하는 버튼 생성
-func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>, selectedCharacter: Binding<CharacterSetting>, characterToDoInfo: Binding<ManageToDoInfo>) -> some View {
+func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<CharacterSetting>, isDetailViewActive: Binding<Bool>, selectedCharacter: Binding<CharacterSetting>, characterToDoInfo: Binding<ManageToDoInfo>, uid: Binding<String>) -> some View {
     HStack {
         Button {
             isDetailViewActive.wrappedValue.toggle()
@@ -125,13 +135,14 @@ func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<Cha
                 NavigationLink("", destination: DetailView(
                     isMainViewActive: isMainViewActive, isDetailViewActive: isDetailViewActive,
                     character: selectedCharacter,
-                    characterToDoInfo: characterToDoInfo), isActive: isDetailViewActive)
+                    characterToDoInfo: characterToDoInfo,
+                    uid: uid), isActive: isDetailViewActive)
             )
         }.buttonStyle(PlainButtonStyle())
         
         
         Button {
-            callLostarkApi(characterViewModel: CharacterViewModel(), character: character) {
+            callLostarkApi(characterViewModel: CharacterViewModel(), character: character, uid: uid) {
                 // API 호출이 완료된 후에 UI 업데이트 코드를 작성
                 print("API complete")
             }
@@ -144,7 +155,7 @@ func createCharacterCell(isMainViewActive: Binding<Bool>, character: Binding<Cha
     }
 }
 
-func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<CharacterSetting>, completion: @escaping () -> Void) {
+func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<CharacterSetting>, uid: Binding<String>, completion: @escaping () -> Void) {
     guard let encodeName = character.wrappedValue.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
         return
     }
@@ -159,17 +170,11 @@ func callLostarkApi(characterViewModel: CharacterViewModel, character: Binding<C
                 character.wrappedValue.charClass = data.CharacterClassName ?? ""
                 character.wrappedValue.charLevel = data.ItemAvgLevel ?? ""
                 
-                characterViewModel.saveDateForCreateCell(character.wrappedValue)
+                characterViewModel.saveDateForCreateCell(character.wrappedValue, uid: uid.wrappedValue)
             }
         case .failure(let error):
             // 에러 처리
             print("API Error: \(error)")
         }
-    }
-}
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
     }
 }

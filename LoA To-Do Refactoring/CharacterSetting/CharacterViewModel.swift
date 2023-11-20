@@ -54,6 +54,9 @@ class CharacterViewModel: ObservableObject {
     //  골드획득 컨텐츠 눌린 횟수
     @Published var goldCount: Int = 0
     
+    //  UID변수
+    @Published var uid: String = ""
+    
     init() { //picker를 바로 사용하기 위해
         loadAbyssDun()
         loadClassNames()
@@ -155,7 +158,7 @@ class CharacterViewModel: ObservableObject {
     
     //  MARK: - characterUpdate
     //  DetailView에서 캐릭터를 갱신할 때 사용
-    func updateCharacter(completion: @escaping() -> Void) {
+    func updateCharacter(uid: String ,completion: @escaping() -> Void) {
         guard let encodeName = characterForUpdate.charName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
         }
@@ -169,7 +172,7 @@ class CharacterViewModel: ObservableObject {
                     self.characterForUpdate.charClass = data.CharacterClassName ?? ""
                     self.characterForUpdate.charLevel = data.ItemAvgLevel ?? ""
                             
-                    self.saveDateForCreateCell(self.characterForUpdate)
+                    self.saveDateForCreateCell(self.characterForUpdate, uid: uid)
                     completion() // 완료 콜백 호출
                 }
             case .failure(let error):
@@ -183,7 +186,7 @@ class CharacterViewModel: ObservableObject {
     //  MARK: Cell 생성을 위한 저장
     let db = Firestore.firestore()
     
-    func saveDateForCreateCell(_ characterList: CharacterSetting) {
+    func saveDateForCreateCell(_ characterList: CharacterSetting, uid: String) {
         let charName = characterList.charName
         
         let dataToUpdateAndSave: [String: Any] = [
@@ -204,9 +207,12 @@ class CharacterViewModel: ObservableObject {
             "whatAbyssDungeon": characterList.whatAbyssDungeon ?? ""
         ]
         
+        let uidCollection = db.collection("UID").document(uid).collection("Cell")
+        let documentRef = uidCollection.document(charName)
+        /**
         let cellCollection = db.collection("Cells")
         let documentRef = cellCollection.document(charName)
-        
+         */
         documentRef.getDocument{ (document, error) in
             if let document = document, document.exists {
                 documentRef.setData(dataToUpdateAndSave) { error in
@@ -230,8 +236,8 @@ class CharacterViewModel: ObservableObject {
     }
     
     // MARK: Cell Data 가져오기
-    func loadDataForCreateCell() {
-        let cellCollection = db.collection("Cells")
+    func loadDataForCreateCell(uid: String) {
+        let cellCollection = db.collection("UID").document(uid).collection("Cell")
         
         cellCollection.addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -261,18 +267,19 @@ class CharacterViewModel: ObservableObject {
     func removeCells(at offsets: IndexSet) {
         for index in offsets {
             let characterToRemove = characterList[index]
-            removeCellsForFirestore(characterToRemove)
-            removeManageCharacterInFireStore(characterToRemove)
+            removeCellsForFirestore(characterToRemove, uid: self.uid)
+            removeManageCharacterInFireStore(characterToRemove, uid: self.uid)
         }
         
         characterList.remove(atOffsets: offsets)
     }
     
-    func removeCellsForFirestore(_ character: CharacterSetting) {
-        let characterName = character.charName
+    func removeCellsForFirestore(_ character: CharacterSetting, uid: String) {
+
+        let charName = character.charName
         
-        let cellCollection = db.collection("Cells")
-        let documentRef = cellCollection.document(characterName)
+        let cellCollection = db.collection("UID").document(uid).collection("Cell")
+        let documentRef = cellCollection.document(charName)
         
         documentRef.delete { error in
             if let error = error {
@@ -283,11 +290,11 @@ class CharacterViewModel: ObservableObject {
         }
     }
     
-    func removeManageCharacterInFireStore(_ character: CharacterSetting) {
-        let characterName = character.charName
+    func removeManageCharacterInFireStore(_ character: CharacterSetting, uid: String) {
+        let charName = character.charName
         
-        let manageCharacterCollection = db.collection("ManageCharacter")
-        let documentRef = manageCharacterCollection.document(characterName)
+        let manageCharacterCollection = db.collection("UID").document(uid).collection("ManageCharacter")
+        let documentRef = manageCharacterCollection.document(charName)
         
         documentRef.delete { error in
             if let error = error {

@@ -11,7 +11,9 @@ struct SettingView: View {
     @Binding var isMainViewActive: Bool
     @Binding var isSettingViewActive: Bool
     @Binding var characterList: [CharacterSetting]
+    @Binding var uid: String
     @ObservedObject var characterViewModel = CharacterViewModel()
+    @ObservedObject var detailViewModel = DetailViewViewModel()
     
     
     var body: some View {
@@ -21,6 +23,7 @@ struct SettingView: View {
                 charToDoListSelection(tempNewCharacter: $characterViewModel.newCharacter, 
                                       characterViewModel: characterViewModel)
                 Spacer()
+                Text("\(uid)")
             }
             
             
@@ -31,7 +34,9 @@ struct SettingView: View {
                                                        tempNewCharacter: $characterViewModel.newCharacter,
                                                        characterList: $characterList,
                                                        isSettingViewActive: $isSettingViewActive,
-                                                       characterViewModel: characterViewModel)
+                                                       characterViewModel: characterViewModel,
+                                                       uid: $uid,
+                                                       detailViewModel: detailViewModel)
             )
         }
     }
@@ -51,7 +56,7 @@ func backButton(isMainViewActive: Binding<Bool>) -> some View {
 
 
 //  MARK: - 캐릭터 생성 완료 버튼
-func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>, characterViewModel: CharacterViewModel) -> some View {
+func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharacter: Binding<CharacterSetting>, characterList: Binding<[CharacterSetting]>,isSettingViewActive: Binding<Bool>, characterViewModel: CharacterViewModel, uid: Binding<String>, detailViewModel: DetailViewViewModel) -> some View {
     return Button {
         
         isSettingViewActive.wrappedValue = false
@@ -79,7 +84,9 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharac
         
         //  최초 생성을 제외한 경우 FireStore에서 Cell데이터를 가져오기 때문에
         //  FireStore에도 같이 저장
-        characterViewModel.saveDateForCreateCell(newChar)
+        characterViewModel.saveDateForCreateCell(newChar, uid: uid.wrappedValue)
+        detailViewModel.saveDataForManageToDoInfo(detailViewModel.characterToDoInfo, uid: uid.wrappedValue)
+        
         
     } label: {
         Text("캐릭터 생성")
@@ -234,11 +241,12 @@ struct SettingView_Previews: PreviewProvider {
         isAbrelRaid: false, isIliakanRaid: false,
         isKamenRaid: false, isAbyssRaid: false,
         isAbyssDungeon: false, whatAbyssDungeon: "")
+    @State static var uid: String = ""
     
     static var previews: some View {
         MainView()
             .sheet(isPresented: $isMainViewActive) {
-                SettingView(isMainViewActive: $isMainViewActive, isSettingViewActive: $isSettingViewActive, characterList: $characterList)
+                SettingView(isMainViewActive: $isMainViewActive, isSettingViewActive: $isSettingViewActive, characterList: $characterList , uid: $uid)
             }
     }
 }

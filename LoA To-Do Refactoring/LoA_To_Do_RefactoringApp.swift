@@ -7,6 +7,11 @@
 
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
+import GoogleSignIn
+import GoogleSignInSwift
 
 @main
 struct LoA_To_Do_RefactoringApp: App {
@@ -18,7 +23,10 @@ struct LoA_To_Do_RefactoringApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            LoginView()
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

@@ -8,6 +8,8 @@ target 'LoA To-Do Refactoring' do
 	pod 'Firebase/Core'
  	pod 'Firebase/Auth'
   	pod 'Firebase/Firestore'
+	pod 'GoogleSignIn'
+	pod 'GoogleSignInSwiftSupport'
 
   # Pods for LoA To-Do Refactoring
 

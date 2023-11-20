@@ -9,43 +9,85 @@ import SwiftUI
 import FirebaseCore
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
+import GoogleSignInSwift
 
 struct LoginView: View {
+    @ObservedObject var loginViewModel = LoginViewModel()
     @State private var email = ""
     @State private var password = ""
+    @State var isShownSheet: Bool = false
+    @State var isShowFullScreenCover: Bool = false
+    @State var isShowingAlertWhenFailed: Bool = false
+    @State var isShowingAlertWhenSuccessed: Bool = false
+    
     var body: some View {
         VStack(spacing: 30){
             TextField("Email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .keyboardType(.emailAddress)
+            
             SecureField("Password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             
             Button("로그인") {
                 signInFirebase()
             }
-            
-            Button("구글 로그인") {
-                
+            .alert(isPresented: $loginViewModel.isShowingAlertWhenFailed) {
+                Alert(
+                    title: Text("실패함"),
+                    message: Text("이메일 비번 확인해보셈"),
+                    dismissButton: .default(Text("ㅇㅋ")) {
+                        $loginViewModel.isShowingAlertWhenFailed.wrappedValue.toggle()
+                    }
+                )
             }
             
+            GoogleSignInButton(
+                scheme: .light,
+                style: .wide,
+                action: {
+                    //signInWithGoogle()
+                }
+            )
+            .frame(width: 300, height: 60, alignment: .center)
+            
+            Spacer()
             Button("이메일 회원가입") {
-                
+                self.isShownSheet.toggle()
+            }
+            .sheet(isPresented: $isShownSheet) {
+                SignUpView(isShownSheet: $isShownSheet)
             }
             
             
         }
         .padding()
+        
+        .fullScreenCover(isPresented: $isShowFullScreenCover) {
+            MainView()
+        }
+        
     }
     
     private func signInFirebase() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("로그인 실패! 이메일이나 패스워드 확인하셈")
+                // 로그인 실패 alert 표시
+                loginViewModel.isShowingAlertWhenFailed.toggle()
+                
             } else {
-                MainView()
+                // FullScreenCover로 MainView 이동
+                isShowFullScreenCover.toggle()
+                
             }
         }
     }
+    
+    private func signInWithGoogle() {
+        
+    }
+
 }
 
 #Preview {

@@ -18,6 +18,8 @@ struct DetailView: View {
     
     @State var isEditViewActive: Bool = false
     
+    @Binding var uid: String
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -61,7 +63,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isChaosDungeonDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isGuardianRaid {
@@ -71,7 +73,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isGuardianRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 Divider()
@@ -102,7 +104,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isValtanRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isViakissRaid {
@@ -112,7 +114,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isViakissRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isKoukuRaid {
@@ -122,7 +124,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isKoukuRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isAbrelRaid {
@@ -132,7 +134,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isAbrelRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isIliakanRaid {
@@ -142,7 +144,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isIliakanRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isKamenRaid {
@@ -152,7 +154,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isKamenRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 Divider()
@@ -181,7 +183,7 @@ struct DetailView: View {
                         ))
                         .onTapGesture {
                             characterToDoInfo.isAbyssRaidDone.toggle()
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 if character.isAbyssDungeon {
@@ -192,7 +194,7 @@ struct DetailView: View {
                         .onTapGesture {
                             characterToDoInfo.isAbyssDungeonDone.toggle()
                             characterToDoInfo.whatAbyssDungeon = character.whatAbyssDungeon
-                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo)
+                            detailViewModel.saveDataForManageToDoInfo(characterToDoInfo, uid: uid)
                         }
                 }
                 
@@ -204,13 +206,14 @@ struct DetailView: View {
             leading: backButton(isMainViewActive: $isMainViewActive),
             trailing: goEditMode(isDetailViewActive: $isDetailViewActive, 
                                  isEditViewActive: $isEditViewActive,
-                                 character: $character)
+                                 character: $character,
+                                 uid: $uid)
         )
         .onAppear {
             // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
             characterToDoInfo.charName = character.charName
     
-            detailViewModel.loadDataFromFireStore(character.charName) { result in
+            detailViewModel.loadDataFromFireStore(character.charName, uid: uid) { result in
                 switch result {
                 case .success(let characterToDoInfo):
                     self.characterToDoInfo = characterToDoInfo
@@ -225,11 +228,11 @@ struct DetailView: View {
             characterToDoInfo = detailViewModel.toDoInfo
             
             //  MainView의 character와 EditView에서 넘어온 character를 동기화
-            characterViewModel.saveDateForCreateCell(character)
+            characterViewModel.saveDateForCreateCell(character, uid: uid)
         }
         .refreshable {
             characterViewModel.characterForUpdate = character
-            characterViewModel.updateCharacter {
+            characterViewModel.updateCharacter(uid: uid) {
                 character = characterViewModel.characterForUpdate
             }
             
@@ -259,7 +262,7 @@ func characterInfoSection(character: Binding<CharacterSetting>) -> some View {
     }
 }
 
-func goEditMode(isDetailViewActive: Binding<Bool>, isEditViewActive: Binding<Bool>, character: Binding<CharacterSetting>) -> some View{
+func goEditMode(isDetailViewActive: Binding<Bool>, isEditViewActive: Binding<Bool>, character: Binding<CharacterSetting>, uid: Binding<String>) -> some View{
     Button {
         isEditViewActive.wrappedValue.toggle()
     } label: {
@@ -271,7 +274,8 @@ func goEditMode(isDetailViewActive: Binding<Bool>, isEditViewActive: Binding<Boo
         NavigationLink("",destination: EditView(
             isDetailViewActive: isDetailViewActive,
             isEditViewActive: isEditViewActive,
-            character: character),isActive: isEditViewActive)
+            character: character,
+            uid: uid),isActive: isEditViewActive)
     )
 }
 
@@ -295,11 +299,12 @@ struct DetailView_Previews: PreviewProvider {
         isIliakanRaidDone: false,isKamenRaidDone: false,
         isAbyssRaidDone: false,isAbyssDungeonDone: false
         )
+    @State static var uid: String = ""
     
     static var previews: some View {
         MainView()
             .sheet(isPresented: $isMainViewActive) {
-                DetailView(isMainViewActive: $isMainViewActive, isDetailViewActive: $isDetailViewActive, character: $character, characterToDoInfo: $characterToDoInfo)
+                DetailView(isMainViewActive: $isMainViewActive, isDetailViewActive: $isDetailViewActive, character: $character, characterToDoInfo: $characterToDoInfo, uid: $uid)
             }
     }
 }
