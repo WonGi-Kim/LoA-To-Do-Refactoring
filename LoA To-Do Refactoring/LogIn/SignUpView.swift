@@ -14,26 +14,59 @@ struct SignUpView: View {
     @ObservedObject var loginViewModel = LoginViewModel()
     @State var isShowingAlert : Bool = false
     @Binding var isShownSheet : Bool
-    
+    @State var checkEmail: String = ""
+    @State var checkPassword: String = ""
+
     var body: some View {
         VStack(spacing: 30) {
             VStack(alignment: .leading) {
-                Text("이메일")
-                    .font(.headline)
+                HStack {
+                    Text("이메일")
+                        .font(.headline)
+                    Spacer()
+                    
+                    Button {
+                        DispatchQueue.main.async {
+                            checkEmail = loginViewModel.signUpEmail
+                            print("checkEmail: \(checkEmail)")
+                            loginViewModel.checkSignUpEmail(checkEmail: $checkEmail.wrappedValue)
+                        }
+                        print("Button tapped")
+                    } label: {
+                        Text("중복 확인")
+                            .font(.subheadline)
+                    }
+                    .alert(isPresented: $loginViewModel.isFailedCheckEmail) {
+                        Alert(
+                            title: Text("이미 사용중인 이메일"),
+                            message: Text("다른걸로 다시 시도 ㄱㄱ"),
+                            dismissButton: .default(Text("ok")) {
+                                $loginViewModel.isFailedCheckEmail.wrappedValue = false
+                            }
+                        )
+                    }
+                    .disabled(loginViewModel.signUpEmail.isEmpty)
+                    .opacity(loginViewModel.signUpEmail.isEmpty ? 0.3 : 1.0)
+                    .padding(.trailing,10)
+                    .foregroundColor(.blue)
+                    
+                }
                 TextField("이메일을 입력하세요.", text: $loginViewModel.signUpEmail)
                     .padding()
                     .cornerRadius(8)
                     .textInputAutocapitalization(.never)
                     .keyboardType(.emailAddress)
+                    .border(.green, width: loginViewModel.isSucessedCheckEmail ? 1 : 0)
             }
             
             VStack(alignment: .leading) {
                 Text("비밀번호")
                     .font(.headline)
-                SecureField("비밀번호를 입력하세요.", text: $loginViewModel.signUpPassword)
+                SecureField("비밀번호를 입력하세요.(6자리 이상)", text: $loginViewModel.signUpPassword)
                     .padding()
                     .cornerRadius(8)
                     .textInputAutocapitalization(.never)
+                    .border(loginViewModel.signUpPassword.count < 6 ? (loginViewModel.signUpPassword.isEmpty ? Color.clear : .red) : .green , width: 1)
             }
             
             VStack(alignment: .leading) {
@@ -43,7 +76,7 @@ struct SignUpView: View {
                     .padding()
                     .cornerRadius(8)
                     .textInputAutocapitalization(.never)
-                    .border(.red, width: loginViewModel.confirmPassword != loginViewModel.signUpPassword ? 1 : 0)
+                    .border(loginViewModel.signUpPassword == loginViewModel.confirmPassword ? (loginViewModel.confirmPassword.isEmpty ? Color.clear : .green) : (loginViewModel.confirmPassword.isEmpty ? Color.clear : .red), width: 1)
             }
             
             Button {
@@ -70,15 +103,23 @@ struct SignUpView: View {
                 ($loginViewModel.signUpEmail.wrappedValue.isEmpty ||
                  $loginViewModel.signUpPassword.wrappedValue.isEmpty ||
                  $loginViewModel.confirmPassword.wrappedValue.isEmpty ||
-                 $loginViewModel.signUpPassword.wrappedValue != $loginViewModel.confirmPassword.wrappedValue)
+                 $loginViewModel.signUpPassword.wrappedValue != $loginViewModel.confirmPassword.wrappedValue ||
+                 !$loginViewModel.canUseEmail.wrappedValue ||
+                 $loginViewModel.signUpPassword.wrappedValue.count < 6)
             )
 
             .opacity(
                 (($loginViewModel.signUpEmail.wrappedValue.isEmpty ||
                   $loginViewModel.signUpPassword.wrappedValue.isEmpty ||
                   $loginViewModel.confirmPassword.wrappedValue.isEmpty ||
-                  $loginViewModel.signUpPassword.wrappedValue != $loginViewModel.confirmPassword.wrappedValue) ? 0.3 : 1.0)
+                  $loginViewModel.signUpPassword.wrappedValue != $loginViewModel.confirmPassword.wrappedValue ||
+                  !$loginViewModel.canUseEmail.wrappedValue ||
+                  $loginViewModel.signUpPassword.wrappedValue.count < 6) ? 0.3 : 1.0)
             )
+
+        }
+        .onDisappear() {
+            $loginViewModel.isSucessedCheckEmail.wrappedValue = false
         }
     }
 }

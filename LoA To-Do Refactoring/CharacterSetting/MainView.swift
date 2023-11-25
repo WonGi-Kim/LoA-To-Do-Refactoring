@@ -71,7 +71,6 @@ struct MainView: View {
                         characterViewModel.removeCells(at: $0)
                     }  //List 삭제
                 }
-                Text("MainView에 있는 UID: \(uid)")
             }
             .onAppear(){    // MainView로드 시 characterList의 데이터는 사라지기 때문에 Firebase에서 데이터 로드
                 DispatchQueue.main.async {

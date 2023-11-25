@@ -22,8 +22,6 @@ struct SettingView: View {
                 charInfoInputSection(tempNewCharacter: $characterViewModel.newCharacter)
                 charToDoListSelection(tempNewCharacter: $characterViewModel.newCharacter, 
                                       characterViewModel: characterViewModel)
-                Spacer()
-                Text("\(uid)")
             }
             
             
@@ -85,7 +83,6 @@ func confirmCharacterCreateButton(isMainViewActive: Binding<Bool>, tempNewCharac
         //  최초 생성을 제외한 경우 FireStore에서 Cell데이터를 가져오기 때문에
         //  FireStore에도 같이 저장
         characterViewModel.saveDateForCreateCell(newChar, uid: uid.wrappedValue)
-        detailViewModel.saveDataForManageToDoInfo(detailViewModel.characterToDoInfo, uid: uid.wrappedValue)
         
         
     } label: {

@@ -212,13 +212,14 @@ struct DetailView: View {
         .onAppear {
             // CharacterToDoInfo를 전부 받아서 ViewModel로 전달
             characterToDoInfo.charName = character.charName
-    
-            detailViewModel.loadDataFromFireStore(character.charName, uid: uid) { result in
-                switch result {
-                case .success(let characterToDoInfo):
-                    self.characterToDoInfo = characterToDoInfo
-                case .failure(let error):
-                    print("Error: \(error)")
+            DispatchQueue.main.async {
+                detailViewModel.loadDataFromFireStore(character.charName, uid: uid) { result in
+                    switch result {
+                    case .success(let characterToDoInfo):
+                        self.characterToDoInfo = characterToDoInfo
+                    case .failure(let error):
+                        print("Error: \(error)")
+                    }
                 }
             }
         }
